@@ -49,6 +49,9 @@
 	"browserslist": [
 		"last 1 versions"
 	],
+	"dependencies": {
+		"a11y.css": "^5.2.0"
+	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.8",
 		"concurrently": "^7.3.0",
@@ -72,8 +75,5 @@
 			"number-leading-zero": null,
 			"color-function-notation": null
 		}
-	},
-	"dependencies": {
-		"a11y.css": "^5.2.0"
 	}
 }
