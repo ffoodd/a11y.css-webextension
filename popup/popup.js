@@ -1,7 +1,13 @@
 
 // Set language first
-var localeNormalCase = 'en'; // default locale, may happen to be capitalised, cf pt-BR
-var locale; // this will retrieve a lower-case locale, used for file names etc.
+let localeNormalCase = 'en'; // default locale, may happen to be capitalised, cf pt-BR
+let locale; // this will retrieve a lower-case locale, used for file names etc.
+
+function _t(string, locale) {
+	return (localeStrings[locale] && localeStrings[locale][string])
+		? localeStrings[locale][string]
+		: localeStrings['en'][string];
+}
 
 function setLocale() {
 	// first find if there is a locale we can use
@@ -11,7 +17,6 @@ function setLocale() {
 		if (locales.includes(key.toLowerCase()) && !isLocaleFoundYet) {
 			localeNormalCase = key; // new locale
 			isLocaleFoundYet = true;
-			return;
 		}
 	});
 	// locale is used for all localisation strings, cf. locales.js
@@ -20,19 +25,20 @@ function setLocale() {
 	document.body.setAttribute('lang',localeNormalCase);
 
 	// localise every element
-	var localizableElts = document.getElementsByClassName('localizeMe');
+	// @todo Tons of duplicated code here…
+	let localizableElts = document.getElementsByClassName('localizeMe');
 	for(let i=0 ; i < localizableElts.length ; i++) {
-		localizableElts[i].innerHTML = _t(localizableElts[i].getAttribute('id'));
+		localizableElts[i].innerHTML = _t(localizableElts[i].getAttribute('id'), locale);
 	}
 
-	var localizableEltsOn  = document.getElementsByClassName('localizeOn');
+	let localizableEltsOn  = document.getElementsByClassName('localizeOn');
 	for(let i=0 ; i < localizableEltsOn.length ; i++) {
-		localizableEltsOn[i].innerHTML = _t('localizeOn');
+		localizableEltsOn[i].innerHTML = _t('localizeOn', locale);
 	}
 
-	var localizableEltsOff = document.getElementsByClassName('localizeOff');
+	let localizableEltsOff = document.getElementsByClassName('localizeOff');
 	for(let i=0 ; i < localizableEltsOff.length ; i++) {
-		localizableEltsOff[i].innerHTML = _t('localizeOff');
+		localizableEltsOff[i].innerHTML = _t('localizeOff', locale);
 	}
 }
 

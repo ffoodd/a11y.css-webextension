@@ -14,27 +14,27 @@
 			<fieldset class="input-group">
 				<legend><h2 id="a11ycssMinimumNoticeLevel" class="localizeMe"></h2></legend>
 				<div class="radiocontainer">
-					<input type="radio" name="level" id="a11ycss1" value="all" checked class="sr-only">
+					<input type="radio" name="option-a11y" id="a11ycss1" value="all" checked class="sr-only">
 					<label for="a11ycss1" id="a11ycssLevel_all" class="localizeMe"></label>
 				</div>
 				<div class="radiocontainer">
-					<input type="radio" name="level" id="a11ycss2" value="obsolete" class="sr-only">
+					<input type="radio" name="option-a11y" id="a11ycss2" value="obsolete" class="sr-only">
 					<label for="a11ycss2" id="a11ycssLevel_obsolete" class="localizeMe"></label>
 				</div>
 				<div class="radiocontainer">
-					<input type="radio" name="level" id="a11ycss3" value="warning" class="sr-only">
+					<input type="radio" name="option-a11y" id="a11ycss3" value="warning" class="sr-only">
 					<label for="a11ycss3" id="a11ycssLevel_warning" class="localizeMe"></label>
 				</div>
 				<div class="radiocontainer">
-					<input type="radio" name="level" id="a11ycss4" value="error" class="sr-only">
+					<input type="radio" name="option-a11y" id="a11ycss4" value="error" class="sr-only">
 					<label for="a11ycss4" id="a11ycssLevel_error" class="localizeMe"></label>
 				</div>
 			</fieldset>
 
 			<p class="button-group">
-				<span id="a11ycssBtnApply-label" class="localizeMe sr-only"></span>
-				<button type="button" id="a11ycssBtnApply" role="switch"
-						aria-checked="false" aria-labelledby="a11ycssBtnApply-label">
+				<span id="btn-a11y-label" class="localizeMe sr-only"></span>
+				<button type="button" id="btn-a11y" role="switch"
+						aria-checked="false" aria-labelledby="btn-a11y-label">
 						<span id="a11ycssBtnClear" class="localizeMe unapply"></span>
 						<span id="a11ycssBtnApply" class="localizeMe apply"></span>
 				</button>
@@ -44,33 +44,33 @@
 		<div class="util">
 			<h2 id="h1Others" class="localizeMe"></h2>
 			<p class="button-group">
-				<span id="btnOutline-label" class="localizeMe"></span>
-				<button type="button" id="btnOutline" role="switch"
-						aria-checked="false" aria-labelledby="btnOutline-label">
+				<span id="btn-outline-label" class="localizeMe"></span>
+				<button type="button" id="btn-outline" role="switch"
+						aria-checked="false" aria-labelledby="btn-outline-label">
 						<span class="localizeOn"></span>
 						<span class="localizeOff"></span>
 				</button>
 			</p>
 			<p class="button-group">
-				<span id="btnShowLangAttribute-label" class="localizeMe"></span>
-				<button type="button" id="btnShowLangAttribute" role="switch"
-						aria-checked="false" aria-labelledby="btnShowLangAttribute-label">
+				<span id="btn-lang-label" class="localizeMe"></span>
+				<button type="button" id="btn-lang" role="switch"
+						aria-checked="false" aria-labelledby="btn-lang-label">
 						<span class="localizeOn"></span>
 						<span class="localizeOff"></span>
 				</button>
 			</p>
 			<p class="button-group">
-				<span id="btnCheckalts-label" class="localizeMe"></span>
-				<button type="button" id="btnCheckalts" role="switch"
-						aria-checked="false" aria-labelledby="btnCheckalts-label">
+				<span id="btn-alt-label" class="localizeMe"></span>
+				<button type="button" id="btn-alt" role="switch"
+						aria-checked="false" aria-labelledby="btn-alt-label">
 						<span class="localizeOn"></span>
 						<span class="localizeOff"></span>
 				</button>
 			</p>
 			<p class="button-group">
-				<span id="btnTextspacing-label" class="localizeMe"></span>
-				<button type="button" id="btnTextspacing" role="switch"
-						aria-checked="false" aria-labelledby="btnTextspacing-label">
+				<span id="btn-spacing-label" class="localizeMe"></span>
+				<button type="button" id="btn-spacing" role="switch"
+						aria-checked="false" aria-labelledby="btn-spacing-label">
 						<span class="localizeOn"></span>
 						<span class="localizeOff"></span>
 				</button>
@@ -79,17 +79,10 @@
 	</div>
 
 	<!-- generic scripts  -->
-	<script src="../scripts/browser-polyfill.min.js"></script>
-	<script src="../scripts/constants.js"></script>
 	<script src="../scripts/locales.js"></script>
-	<script src="../scripts/utils.js"></script>
 	<script src="popup.js"></script>
 	<!-- proper functions -->
-	<script src="../scripts/a11ycss.js"></script>
-	<script src="../scripts/outline.js"></script>
-	<script src="../scripts/showlangattribute.js"></script>
-	<script src="../scripts/checkalts.js"></script>
-	<script src="../scripts/textspacing.js"></script>
+	<script src="../scripts/init.js" type="module"></script>
 </body>
 
 </html>
