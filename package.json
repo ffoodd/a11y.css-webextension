@@ -26,13 +26,11 @@
 		"watch:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css -w",
 		"test": "stylelint \"./sass/**/*.scss\"",
 		"prewebext": "rm -rf temp && rm -rf css/a11y-*.css && cp -r node_modules/a11y.css/css/a11y-*_*.css ./css",
-		"webext": "npm run webext:polyfill && npm run webext:all",
-		"postwebext": "npm run webext:firefox && npm run webext:chrome",
-		"webext:polyfill": "cp node_modules/webextension-polyfill/dist/browser-polyfill.min.js scripts/",
 		"webext:cp": "cp -r node_modules/a11y.css/css/a11y-??.css temp && cp -r node_modules/a11y.css/css/a11y-?????.css temp",
 		"webext:rename": "cd temp && rename 's/a11y-(.{2,5}).*(.css)$/a11y-$1_all$2/' *.css && cd ..",
 		"webext:mv": "cp temp/*.css css",
-		"webext:all": "mkdir temp && npm run webext:cp && npm run webext:rename && npm run webext:mv",
+		"webext": "mkdir temp && npm run webext:cp && npm run webext:rename && npm run webext:mv",
+		"postwebext": "npm run webext:firefox && npm run webext:chrome",
 		"prewebext:firefox": "cp manifest-firefox.json manifest.json",
 		"webext:firefox": "zip -r -FS a11ycss-webextension-firefox.zip *",
 		"prewebext:chrome": "cp manifest-chrome.json manifest.json",
@@ -61,8 +59,7 @@
 		"sass": "^1.54.8",
 		"stylelint": "^14.11.0",
 		"stylelint-config-recommended": "^9.0.0",
-		"stylelint-config-standard-scss": "^5.0.0",
-		"webextension-polyfill": "^0.10.0"
+		"stylelint-config-standard-scss": "^5.0.0"
 	},
 	"stylelint": {
 		"extends": "stylelint-config-standard-scss",

@@ -227,10 +227,10 @@ input + label {
 }
 
 input + label::before {
-	background: #3e4b55;
+	background: currentColor;
 	border-radius: 50%;
 	content: "";
-	color: white;
+	color: inherit;
 	display: inline-block;
 	font-weight: bold;
 	line-height: 1;
@@ -240,12 +240,17 @@ input + label::before {
 	width: 1em;
 }
 
+input:disabled + label {
+	color: gray;
+}
+
 input:checked + label {
 	color: rebeccapurple;
 }
 
 input:checked + label::before {
-	background: rebeccapurple;
+	background-color: rebeccapurple;
+	color: white;
 	content: "•";
 }
 
