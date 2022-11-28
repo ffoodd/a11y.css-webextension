@@ -23,10 +23,10 @@
 	},
 	"background": {
 		"scripts": [
-          "/scripts/browser-polyfill.min.js",
-          "/scripts/background/main.js"
-        ],
-        "persistent": true
+		  "/scripts/browser-polyfill.min.js",
+		  "/scripts/background/main.js"
+		],
+		"persistent": true
 	},
 	"content_scripts": [
 		{
