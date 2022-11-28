@@ -3,14 +3,14 @@ let level = document.getElementsByName('level');
 let button = document.getElementById("a11ycssBtnApply");
 
 /**
- * Helper function for browser storage
+ * Helper function for BROWSER storage
  * @param {String} strLevel
  */
 function storeA11ycss(strLevel) {
 	// Get current tab ID
-	browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+	chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 		// Get a11y.css stored levels
-		let getLevel = browser.storage.local.get("a11ycssLevel");
+		let getLevel = chrome.storage.local.get("a11ycssLevel");
 		getLevel.then(
 			// when we got something
 			(item) => {
@@ -21,7 +21,7 @@ function storeA11ycss(strLevel) {
 				// Add or replace current tab's value
 				a11ycssLevel[tabs[0].id] = {"level": strLevel};
 				// And set it back to the storage
-				let setting = browser.storage.local.set({ a11ycssLevel });
+				let setting = chrome.storage.local.set({ a11ycssLevel });
 				setting.then(null, onError); // just in case
 			}
 		);
@@ -55,7 +55,9 @@ function addA11ycss() {
 		document.getElementsByTagName("head")[0].appendChild(stylesheet);
 	`;
 	console.log(code);
-	browser.tabs.executeScript({ code: code });
+	// @todo Cannot run static code, need to import external file…
+	// @see https://developer.chrome.com/docs/extensions/mv3/mv3-migration/#executing-arbitrary-strings
+	chrome.scripting.executeScript({ code: code });
 }
 
 function removeA11ycss() {
@@ -63,14 +65,14 @@ function removeA11ycss() {
 		var oldStylesheet = document.getElementById("${EXTENSION_PREFIX}stylechecker");
 		if ( oldStylesheet ) { stylesheet.parentNode.removeChild(oldStylesheet) }
 	`;
-	browser.tabs.executeScript({ code: code });
+	chrome.scripting.executeScript({ code: code });
 }
 
 function storeStatus(strStatus) {
 	// Get current tab ID
-	browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+	chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 		// Get a11y.css stored levels
-		let getStatus = browser.storage.local.get("a11ycssStatus");
+		let getStatus = chrome.storage.local.get("a11ycssStatus");
 		getStatus.then(
 			// when we got something
 			(item) => {
@@ -81,7 +83,7 @@ function storeStatus(strStatus) {
 				// Add or replace current tab's value
 				a11ycssStatus[tabs[0].id] = {"status": strStatus};
 				// And set it back to the storage
-				let setting = browser.storage.local.set({ a11ycssStatus });
+				let setting = chrome.storage.local.set({ a11ycssStatus });
 				setting.then(null, onError); // just in case
 			}
 		);
@@ -104,13 +106,13 @@ button.addEventListener('click', function () {
 // on document load, if we have already chosen a level, give it back
 // (the first option is checked in the popup's HTML by default)
 function a11ycssOnload() {
-	let getLevel = browser.storage.local.get("a11ycssLevel");
+	let getLevel = chrome.storage.local.get("a11ycssLevel");
 	getLevel.then(
 		// when we got something
 		(item) => {
 			if (item && item.a11ycssLevel) {
 				// Get current tab ID
-				browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+				chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 					// If a setting is found for this tab
 					if (item.a11ycssLevel[tabs[0].id]) {
 						// a level was set already
@@ -129,12 +131,12 @@ function a11ycssOnload() {
 		onError
 	);
 
-	let getStatus = browser.storage.local.get("a11ycssStatus");
+	let getStatus = chrome.storage.local.get("a11ycssStatus");
 	getStatus.then(
 		// when we got something
 		(item) => {
 			if (item && item.a11ycssStatus) {
-				browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+				chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 					// If a setting is found for this tab
 					if (item.a11ycssStatus[tabs[0].id]) {
 						button.setAttribute('aria-checked', item.a11ycssStatus[tabs[0].id].status);

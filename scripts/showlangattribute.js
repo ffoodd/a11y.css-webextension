@@ -2,9 +2,9 @@ let btnShowLangAttribute = document.getElementById('btnShowLangAttribute');
 
 function storeShowLangStatus(strStatus) {
 	// Get current tab ID
-	browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+	chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 		// Get a11y.css stored status
-		let getStatus = browser.storage.local.get("showLangStatus");
+		let getStatus = chrome.storage.local.get("showLangStatus");
 		getStatus.then(
 			// when we got something
 			(item) => {
@@ -15,7 +15,7 @@ function storeShowLangStatus(strStatus) {
 				// Add or replace current tab's value
 				showLangStatus[tabs[0].id] = {"status": strStatus};
 				// And set it back to the storage
-				let setting = browser.storage.local.set({ showLangStatus });
+				let setting = chrome.storage.local.set({ showLangStatus });
 				setting.then(null, onError); // just in case
 			}
 		);
@@ -32,7 +32,7 @@ function showLangAttribute() {
 		stylesheet.id = "${EXTENSION_PREFIX}showlangattribute";
 		document.getElementsByTagName("head")[0].appendChild(stylesheet);
 	`;
-	browser.tabs.executeScript({ code: code });
+	chrome.scripting.executeScript({ code: code });
 }
 
 function hideLangAttribute() {
@@ -40,7 +40,7 @@ function hideLangAttribute() {
 		var oldStylesheet = document.getElementById("${EXTENSION_PREFIX}showlangattribute");
 		if ( oldStylesheet ) { stylesheet.parentNode.removeChild(oldStylesheet) }
 	`;
-	browser.tabs.executeScript({ code: code });
+	chrome.scripting.executeScript({ code: code });
 }
 
 btnShowLangAttribute.addEventListener('click', function () {
@@ -55,12 +55,12 @@ btnShowLangAttribute.addEventListener('click', function () {
 });
 
 function showLangOnload() {
-	let getStatus = browser.storage.local.get("showLangStatus");
+	let getStatus = chrome.storage.local.get("showLangStatus");
 	getStatus.then(
 		// when we got something
 		function (item) {
 			if (item && item.showLangStatus) {
-				browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+				chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 					// If a setting is found for this tab
 					if (item.showLangStatus[tabs[0].id]) {
 						btnShowLangAttribute.setAttribute('aria-checked', item.showLangStatus[tabs[0].id].status);

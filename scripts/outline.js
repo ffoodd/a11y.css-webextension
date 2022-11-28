@@ -10,7 +10,7 @@ function addOutline() {
 		stylesheet.id = "${EXTENSION_PREFIX}outline";
 		document.getElementsByTagName("head")[0].appendChild(stylesheet);
 	`;
-	browser.tabs.executeScript({ code: code });
+	chrome.scripting.executeScript({ code: code });
 }
 
 function removeOutline() {
@@ -18,14 +18,14 @@ function removeOutline() {
 	var outlineStylesheet = document.getElementById("${EXTENSION_PREFIX}outline");
 	if ( outlineStylesheet ) { outlineStylesheet.parentNode.removeChild(outlineStylesheet) }
 	`;
-	browser.tabs.executeScript({ code: code });
+	chrome.scripting.executeScript({ code: code });
 }
 
 function storeOutlineStatus(strStatus) {
 	// Get current tab ID
-	browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+	chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 		// Get a11y.css stored status
-		let getStatus = browser.storage.local.get("outlineStatus");
+		let getStatus = chrome.storage.local.get("outlineStatus");
 		getStatus.then(
 			// when we got something
 			(item) => {
@@ -36,7 +36,7 @@ function storeOutlineStatus(strStatus) {
 				// Add or replace current tab's value
 				outlineStatus[tabs[0].id] = {"status": strStatus};
 				// And set it back to the storage
-				let setting = browser.storage.local.set({ outlineStatus });
+				let setting = chrome.storage.local.set({ outlineStatus });
 				setting.then(null, onError); // just in case
 			}
 		);
@@ -55,12 +55,12 @@ btnOutline.addEventListener('click', function() {
 });
 
 function outlineOnload() {
-	let getStatus = browser.storage.local.get("outlineStatus");
+	let getStatus = chrome.storage.local.get("outlineStatus");
 	getStatus.then(
 		// when we got something
 		(item) => {
 			if (item && item.outlineStatus) {
-				browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+				chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 					// If a setting is found for this tab
 					if (item.outlineStatus[tabs[0].id]) {
 						btnOutline.setAttribute('aria-checked', item.outlineStatus[tabs[0].id].status);

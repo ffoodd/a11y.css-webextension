@@ -17,8 +17,7 @@
 		}
 	},
 	"background": {
-		"service_worker": ["/scripts/background/main.js"],
-		"persistent": true
+		"service_worker": "/scripts/background/main.js"
 	},
 	"content_scripts": [
 		{
@@ -37,11 +36,14 @@
 		"48": "icons/a11y-css_48.png",
 		"128": "icons/a11y-css_128.png"
 	},
-	"web_accessible_resources": [
-		"icons/info.svg",
-		"icons/ko.svg",
-		"icons/ok.svg",
-		"scripts/injected/checkalts.js",
-		"css/*"
-	]
+	"web_accessible_resources": [{
+		"resources": [
+			"icons/info.svg",
+			"icons/ko.svg",
+			"icons/ok.svg",
+			"scripts/injected/checkalts.js",
+			"css/*"
+		],
+		"matches": ["<all_urls>"]
+	}]
 }

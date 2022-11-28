@@ -213,7 +213,7 @@ a11ycss.checkalts = {
 	}
 };
 
-browser.runtime.onMessage.addListener(message => {
+chrome.runtime.onMessage.addListener(message => {
 	if (message.a11ycss_action && message.a11ycss_action === "checkalts") {
 		if(message.strings) {
 			a11ycss.checkalts.updateStrings(message.strings);
