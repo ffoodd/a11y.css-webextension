@@ -6,8 +6,10 @@ function onCleared() {
   	console.info("a11y.css storage.local cleared");
 }
 
-function unsetStatuses(tabId, changeInfo, tabInfo) {
+function unsetStatuses(tabId, changeInfo) {
+	console.log(tabId)
     if (changeInfo.url) {
+		// @todo tons of duplicated code here: must be a better way…
         let getTextSpacingStatus = chrome.storage.local.get("textSpacingStatus");
         getTextSpacingStatus.then(
             (item) => {

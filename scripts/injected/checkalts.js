@@ -93,6 +93,7 @@ a11ycss.checkalts = {
 		var imgs = document.getElementsByTagName('img');
 		console.info(imgs);
 		var str = '';
+		// @todo Use <template> right in the HTML, and maybe slots?
 		var tpl = `
 			<figure data-target="{TARGET}" role="group">
 				{PICTOGRAM}
@@ -109,7 +110,6 @@ a11ycss.checkalts = {
 			var tmptpl = tpl;
 			var tmpimg = imgs[i];
 			var tmpstr = '';
-			var tmppicto = '';
 			var tmptargetclass = this.namespace + "targetimage" + Date.now();
 			console.log(tmptargetclass);
 			tmpimg.classList.add(tmptargetclass);

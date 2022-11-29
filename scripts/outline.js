@@ -1,71 +1,80 @@
 let btnOutline = document.getElementById('btnOutline');
 
+async function getCurrentTab() {
+	let queryOptions = { active: true, lastFocusedWindow: true };
+	// `tab` will either be a `tabs.Tab` instance or `undefined`.
+	let [tab] = await chrome.tabs.query(queryOptions);
+	return tab;
+}
+
 function addOutline() {
-	const code = `
-		var oldStylesheet = document.getElementById("${EXTENSION_PREFIX}outline");
-		if ( oldStylesheet ) { oldStylesheet.parentNode.removeChild(oldStylesheet) }
-		var stylesheet = document.createElement("link");
-		stylesheet.rel = "stylesheet";
-		stylesheet.href = ${BROWSER_STRING}.extension.getURL("/css/outline.css");
-		stylesheet.id = "${EXTENSION_PREFIX}outline";
-		document.getElementsByTagName("head")[0].appendChild(stylesheet);
-	`;
-	chrome.scripting.executeScript({ code: code });
+	let outlineStylesheet = document.getElementById("a11ycss_outline");
+	if ( outlineStylesheet ) { outlineStylesheet.parentNode.removeChild(outlineStylesheet) }
+	let stylesheet = document.createElement("link");
+	stylesheet.rel = "stylesheet";
+	stylesheet.href = chrome.runtime.getURL("/css/outline.css");
+	stylesheet.id = "a11ycss_outline";
+	document.getElementsByTagName("head")[0].appendChild(stylesheet);
 }
 
 function removeOutline() {
-	const code = `
-	var outlineStylesheet = document.getElementById("${EXTENSION_PREFIX}outline");
+	console.log('remove!')
+	let outlineStylesheet = document.getElementById("a11ycss_outline");
 	if ( outlineStylesheet ) { outlineStylesheet.parentNode.removeChild(outlineStylesheet) }
-	`;
-	chrome.scripting.executeScript({ code: code });
 }
 
-function storeOutlineStatus(strStatus) {
-	// Get current tab ID
-	chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-		// Get a11y.css stored status
-		let getStatus = chrome.storage.local.get("outlineStatus");
-		getStatus.then(
-			// when we got something
-			(item) => {
-				let outlineStatus = [];
-				if (item && item.outlineStatus) {
-					outlineStatus = item.outlineStatus;
-				}
-				// Add or replace current tab's value
-				outlineStatus[tabs[0].id] = {"status": strStatus};
-				// And set it back to the storage
-				let setting = chrome.storage.local.set({ outlineStatus });
-				setting.then(null, onError); // just in case
+function storeOutlineStatus(strStatus, tab) {
+	// Get a11y.css stored status
+	let getStatus = chrome.storage.local.get("outlineStatus");
+	getStatus.then(
+		// when we got something
+		(item) => {
+			let outlineStatus = [];
+			if (item && item.outlineStatus) {
+				outlineStatus = item.outlineStatus;
 			}
-		);
-	});
+			// Add or replace current tab's value
+			outlineStatus[tab.id] = {"status": strStatus};
+			// And set it back to the storage
+			let setting = chrome.storage.local.set({ outlineStatus });
+			setting.then(null, onError); // just in case
+		}
+	);
 }
 
-btnOutline.addEventListener('click', function() {
-	var checked = this.getAttribute('aria-checked') === 'true' || false;
+btnOutline.addEventListener('click', async (e) => {
+	console.log(e)
+
+	let checked = e.target.getAttribute('aria-checked') === 'true' || false;
+	let tab = await getCurrentTab();
+	console.info(tab)
 	if (checked) {
-		removeOutline();
+		chrome.scripting.executeScript({
+			target: {tabId: tab.id},
+			func: removeOutline
+		});
 	} else {
-		addOutline();
+		chrome.scripting.executeScript({
+			target: {tabId: tab.id},
+			func: addOutline
+		});
 	}
-	this.setAttribute('aria-checked', !checked);
-	storeOutlineStatus(!checked);
+	e.target.setAttribute('aria-checked', String(!checked));
+	storeOutlineStatus(!checked, tab);
 });
 
 function outlineOnload() {
 	let getStatus = chrome.storage.local.get("outlineStatus");
 	getStatus.then(
 		// when we got something
-		(item) => {
+		async (item) => {
 			if (item && item.outlineStatus) {
-				chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-					// If a setting is found for this tab
-					if (item.outlineStatus[tabs[0].id]) {
-						btnOutline.setAttribute('aria-checked', item.outlineStatus[tabs[0].id].status);
-					}
-				});
+				console.log(item)
+				let tab = await getCurrentTab();
+				// If a setting is found for this tab
+				if (item.outlineStatus[tab.id]) {
+					btnOutline.setAttribute('aria-checked', item.outlineStatus[tab.id].status);
+				}
 			}
 		},
 		// we got nothing
@@ -73,3 +82,4 @@ function outlineOnload() {
 	);
 }
 outlineOnload();
+console.log('hop')
