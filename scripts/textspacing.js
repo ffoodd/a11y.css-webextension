@@ -7,49 +7,46 @@ async function getCurrentTab() {
 	return tab;
 }
 
-function storeTextSpacingStatus(strStatus, tab) {
-	// Get a11y.css stored status
+function storeTextSpacingStatus(strStatus, tabId) {
 	chrome.storage.local.get("textSpacingStatus").then(
-		// when we got something
-		(item) => {
+		item => {
 			let textSpacingStatus = [];
 			if (item && item.textSpacingStatus) {
 				textSpacingStatus = item.textSpacingStatus;
 			}
-			// Add or replace current tab's value
-			textSpacingStatus[tab.id] = {"status": strStatus};
-			// And set it back to the storage
+			textSpacingStatus[tabId] = {"status": strStatus};
 			let setting = chrome.storage.local.set({ textSpacingStatus });
-			setting.then(null, onError); // just in case
+			setting.then(null, onError);
 		}
 	);
 }
 
-btnTextspacing.addEventListener('click', async (e) => {
-	// @note Variant for injected scripts: why is this needed?
-	let tab = await getCurrentTab();
-	chrome.tabs.sendMessage(tab.id, {
-		a11ycss_action: "textspacing"
-	});
-	let checked = e.target.getAttribute('aria-checked') === 'true' || false;
-	e.target.setAttribute('aria-checked', String(!checked));
-	storeTextSpacingStatus(!checked, tab);
+btnTextspacing.addEventListener('click', () => {
+	let checked = btnTextspacing.getAttribute('aria-checked') === 'true' || false;
+
+	getCurrentTab()
+		.then(tab => {
+			chrome.tabs.sendMessage(tab.id, {
+				a11ycss_action: "textspacing"
+			});
+		})
+		.then(tab => {
+			btnTextspacing.setAttribute('aria-checked', String(!checked));
+			storeTextSpacingStatus(!checked, tab.id);
+		});
 });
 
 function textSpacingOnload() {
-	let getStatus = chrome.storage.local.get("textSpacingStatus");
-	getStatus.then(
-		// when we got something
-		async (item) => {
+	chrome.storage.local.get("textSpacingStatus").then(
+		item => {
 			if (item && item.textSpacingStatus) {
-				let tab = await getCurrentTab();
-				// If a setting is found for this tab
-				if (item.textSpacingStatus[tab.id]) {
-					btnTextspacing.setAttribute('aria-checked', item.textSpacingStatus[tab.id].status);
-				}
+				getCurrentTab().then(tab => {
+					if (item.textSpacingStatus[tab.id]) {
+						btnTextspacing.setAttribute('aria-checked', item.textSpacingStatus[tab.id].status);
+					}
+				});
 			}
 		},
-		// we got nothing
 		onError
 	);
 }

@@ -12,27 +12,22 @@ async function getCurrentTab() {
 	return tab;
 }
 
-function storeCheckAltsStatus(strStatus, tab) {
-	// Get a11y.css stored status
-	let getStatus = chrome.storage.local.get("checkAltsStatus");
-	getStatus.then(
-		// when we got something
-		(item) => {
+function storeCheckAltsStatus(strStatus, tabId) {
+	chrome.storage.local.get("checkAltsStatus").then(
+		item => {
 			let checkAltsStatus = [];
 			if (item && item.checkAltsStatus) {
 				checkAltsStatus = item.checkAltsStatus;
 			}
-			// Add or replace current tab's value
-			checkAltsStatus[tab.id] = {"status": strStatus};
-			// And set it back to the storage
+			checkAltsStatus[tabId] = {"status": strStatus};
 			let setting = chrome.storage.local.set({ checkAltsStatus });
-			setting.then(null, onError); // just in case
+			setting.then(null, onError);
 		}
 	);
 }
 
-btnCheckalts.addEventListener('click', async (e) => {
-	let tab = await getCurrentTab();
+btnCheckalts.addEventListener('click', () => {
+	let checked = btnCheckalts.getAttribute('aria-checked') === 'true' || false;
 	let icons = {
 		ok: chrome.runtime.getURL("/icons/ok.svg"),
 		ko: chrome.runtime.getURL("/icons/ko.svg"),
@@ -43,30 +38,32 @@ btnCheckalts.addEventListener('click', async (e) => {
 		ko: _t("altMissing"),
 		info: _t("altEmpty")
 	};
-	chrome.tabs.sendMessage(tab.id, {
-		a11ycss_action: "checkalts",
-		icons: icons,
-		strings: strings
-	});
-	let checked = e.target.getAttribute('aria-checked') === 'true' || false;
-	e.target.setAttribute('aria-checked', String(!checked));
-	storeCheckAltsStatus(!checked, tab);
+
+	getCurrentTab()
+		.then(tab => {
+			chrome.tabs.sendMessage(tab.id, {
+				a11ycss_action: "checkalts",
+				icons: icons,
+				strings: strings
+			});
+		})
+		.then(tab => {
+			btnCheckalts.setAttribute('aria-checked', String(!checked));
+			storeCheckAltsStatus(!checked, tab.id);
+		});
 });
 
 function checkAltsOnload() {
-	let getStatus = chrome.storage.local.get("checkAltsStatus");
-	getStatus.then(
-		// when we got something
-		async (item) => {
+	chrome.storage.local.get("checkAltsStatus").then(
+		item => {
 			if (item && item.checkAltsStatus) {
-				let tab = await getCurrentTab();
-				// If a setting is found for this tab
-				if (item.checkAltsStatus[tab.id]) {
-					btnCheckalts.setAttribute('aria-checked', item.checkAltsStatus[tab.id].status);
-				}
+				getCurrentTab().then(tab => {
+					if (item.checkAltsStatus[tab.id]) {
+						btnCheckalts.setAttribute('aria-checked', item.checkAltsStatus[tab.id].status);
+					}
+				})
 			}
 		},
-		// we got nothing
 		onError
 	);
 }

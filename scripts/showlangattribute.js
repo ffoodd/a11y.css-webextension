@@ -7,75 +7,54 @@ async function getCurrentTab() {
 	return tab;
 }
 
-function storeShowLangStatus(strStatus, tab) {
-	// Get a11y.css stored status
-	let getStatus = chrome.storage.local.get("showLangStatus");
-	getStatus.then(
-		// when we got something
-		(item) => {
+function storeShowLangStatus(strStatus, tabId) {
+	chrome.storage.local.get("showLangStatus").then(
+		item => {
 			let showLangStatus = [];
 			if (item && item.showLangStatus) {
 				showLangStatus = item.showLangStatus;
 			}
-			// Add or replace current tab's value
-			showLangStatus[tab.id] = {"status": strStatus};
-			// And set it back to the storage
+			showLangStatus[tabId] = {"status": strStatus};
 			let setting = chrome.storage.local.set({ showLangStatus });
-			setting.then(null, onError); // just in case
+			setting.then(null, onError);
 		}
 	);
 }
 
-function showLangAttribute() {
-	let oldStylesheet = document.getElementById("a11ycss_showlangattribute");
-	if ( oldStylesheet ) { oldStylesheet.parentNode.removeChild(oldStylesheet) }
-	let stylesheet = document.createElement("link");
-	stylesheet.rel = "stylesheet";
-	stylesheet.href = chrome.runtime.getURL("/css/show-lang.css");
-	stylesheet.id = "a11ycss_showlangattribute";
-	document.getElementsByTagName("head")[0].appendChild(stylesheet);
-}
+btnShowLangAttribute.addEventListener('click', () => {
+	let checked = btnShowLangAttribute.getAttribute('aria-checked') === 'true' || false;
+	getCurrentTab()
+		.then(tab => {
+			if (checked) {
+				chrome.scripting.removeCSS({
+					target: {tabId: tab.id},
+					files: ["/css/show-lang.css"]
+				});
 
-function hideLangAttribute() {
-	let oldStylesheet = document.getElementById("a11ycss_showlangattribute");
-	if ( oldStylesheet ) { oldStylesheet.parentNode.removeChild(oldStylesheet) }
-}
-
-btnShowLangAttribute.addEventListener('click', async (e) => {
-	let checked = e.target.getAttribute('aria-checked') === 'true' || false;
-	let tab = await getCurrentTab();
-	// @note since showLang starts with hideLang, is this really useful?
-	// @todo in every option files
-	if (checked) {
-		chrome.scripting.executeScript({
-			target: {tabId: tab.id},
-			func: hideLangAttribute
+			} else {
+				chrome.scripting.insertCSS({
+					target: {tabId: tab.id},
+					files: ["/css/show-lang.css"]
+				});
+			}
+		})
+		.then(tab => {
+			btnShowLangAttribute.setAttribute('aria-checked', String(!checked));
+			storeShowLangStatus(!checked, tab.id);
 		});
-
-	} else {
-		chrome.scripting.executeScript({
-			target: {tabId: tab.id},
-			func: showLangAttribute
-		});
-	}
-	e.target.setAttribute('aria-checked', String(!checked));
-	storeShowLangStatus(!checked, tab);
 });
 
 function showLangOnload() {
-	let getStatus = chrome.storage.local.get("showLangStatus");
-	getStatus.then(
-		// when we got something
-		async (item) => {
+	chrome.storage.local.get("showLangStatus").then(
+		item => {
 			if (item && item.showLangStatus) {
-				let tab = await getCurrentTab();
-				// If a setting is found for this tab
-				if (item.showLangStatus[tab.id]) {
-					btnShowLangAttribute.setAttribute('aria-checked', item.showLangStatus[tab.id].status);
-				}
+				getCurrentTab().then(tab => {
+					if (item.showLangStatus[tab.id]) {
+						btnShowLangAttribute.setAttribute('aria-checked', item.showLangStatus[tab.id].status);
+					}
+				});
 			}
 		},
-		// we got nothing
 		onError
 	);
 }
