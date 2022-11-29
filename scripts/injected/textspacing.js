@@ -35,7 +35,7 @@ a11ycss.textspacing = {
 	}
 };
 
-browser.runtime.onMessage.addListener(message => {
+chrome.runtime.onMessage.addListener(message => {
 	if (message.a11ycss_action && message.a11ycss_action === "textspacing") {
 		console.info("message.a11ycss_action: ", message.a11ycss_action);
 		a11ycss.textspacing.init();

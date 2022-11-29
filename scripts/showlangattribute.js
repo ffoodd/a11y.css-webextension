@@ -1,74 +1,60 @@
 let btnShowLangAttribute = document.getElementById('btnShowLangAttribute');
 
-function storeShowLangStatus(strStatus) {
-	// Get current tab ID
-	browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-		// Get a11y.css stored status
-		let getStatus = browser.storage.local.get("showLangStatus");
-		getStatus.then(
-			// when we got something
-			(item) => {
-				let showLangStatus = [];
-				if (item && item.showLangStatus) {
-					showLangStatus = item.showLangStatus;
-				}
-				// Add or replace current tab's value
-				showLangStatus[tabs[0].id] = {"status": strStatus};
-				// And set it back to the storage
-				let setting = browser.storage.local.set({ showLangStatus });
-				setting.then(null, onError); // just in case
+async function getCurrentTab() {
+	let queryOptions = { active: true, lastFocusedWindow: true };
+	// `tab` will either be a `tabs.Tab` instance or `undefined`.
+	let [tab] = await chrome.tabs.query(queryOptions);
+	return tab;
+}
+
+function storeShowLangStatus(strStatus, tabId) {
+	chrome.storage.local.get("showLangStatus").then(
+		item => {
+			let showLangStatus = [];
+			if (item && item.showLangStatus) {
+				showLangStatus = item.showLangStatus;
 			}
-		);
-	});
+			showLangStatus[tabId] = {"status": strStatus};
+			let setting = chrome.storage.local.set({ showLangStatus });
+			setting.then(null, onError);
+		}
+	);
 }
 
-function showLangAttribute() {
-	const code = `
-		var oldStylesheet = document.getElementById("${EXTENSION_PREFIX}showlangattribute");
-		if ( oldStylesheet ) { oldStylesheet.parentNode.removeChild(oldStylesheet) }
-		var stylesheet = document.createElement("link");
-		stylesheet.rel = "stylesheet";
-		stylesheet.href = ${BROWSER_STRING}.extension.getURL("/css/show-lang.css");
-		stylesheet.id = "${EXTENSION_PREFIX}showlangattribute";
-		document.getElementsByTagName("head")[0].appendChild(stylesheet);
-	`;
-	browser.tabs.executeScript({ code: code });
-}
+btnShowLangAttribute.addEventListener('click', () => {
+	let checked = btnShowLangAttribute.getAttribute('aria-checked') === 'true' || false;
+	getCurrentTab()
+		.then(tab => {
+			if (checked) {
+				chrome.scripting.removeCSS({
+					target: {tabId: tab.id},
+					files: ["/css/show-lang.css"]
+				});
 
-function hideLangAttribute() {
-	const code = `
-		var oldStylesheet = document.getElementById("${EXTENSION_PREFIX}showlangattribute");
-		if ( oldStylesheet ) { stylesheet.parentNode.removeChild(oldStylesheet) }
-	`;
-	browser.tabs.executeScript({ code: code });
-}
-
-btnShowLangAttribute.addEventListener('click', function () {
-	var checked = this.getAttribute('aria-checked') === 'true' || false;
-	if (checked) {
-		hideLangAttribute();
-	} else {
-		showLangAttribute();
-	}
-	this.setAttribute('aria-checked', !checked);
-	storeShowLangStatus(!checked);
+			} else {
+				chrome.scripting.insertCSS({
+					target: {tabId: tab.id},
+					files: ["/css/show-lang.css"]
+				});
+			}
+		})
+		.then(tab => {
+			btnShowLangAttribute.setAttribute('aria-checked', String(!checked));
+			storeShowLangStatus(!checked, tab.id);
+		});
 });
 
 function showLangOnload() {
-	let getStatus = browser.storage.local.get("showLangStatus");
-	getStatus.then(
-		// when we got something
-		function (item) {
+	chrome.storage.local.get("showLangStatus").then(
+		item => {
 			if (item && item.showLangStatus) {
-				browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-					// If a setting is found for this tab
-					if (item.showLangStatus[tabs[0].id]) {
-						btnShowLangAttribute.setAttribute('aria-checked', item.showLangStatus[tabs[0].id].status);
+				getCurrentTab().then(tab => {
+					if (item.showLangStatus[tab.id]) {
+						btnShowLangAttribute.setAttribute('aria-checked', item.showLangStatus[tab.id].status);
 					}
 				});
 			}
 		},
-		// we got nothing
 		onError
 	);
 }
