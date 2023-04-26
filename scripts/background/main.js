@@ -8,24 +8,30 @@ function onError(error) {
 	console.error(`a11y.css error: ${error}`);
 }
 
-function onGot(item) {
-	console.info(`a11y.css got`, item);
-}
-
 function onCleared() {
 	console.info(`a11y.css storage.local cleared`);
 }
 
-chrome.action.onClicked.addListener((tab) => {
-
-});
-
 // Refresh tab
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 	if (changeInfo.status === 'complete') {
-		chrome.storage.local.clear().then(onCleared, onError)
+		chrome.storage.local.clear().then(onCleared, onError);
+	}
+
+	if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
+		chrome.action.disable(tab.id);
+	} else {
+		chrome.action.enable(tab.id);
 	}
 });
+
+chrome.tabs.onCreated.addListener(tab => {
+	chrome.action.disable(tab.id);
+	if (!['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
+		chrome.action.enable(tab.id);
+	}
+});
+
 
 // Update extension
 chrome.runtime.onInstalled.addListener(details => {
@@ -36,7 +42,7 @@ chrome.runtime.onInstalled.addListener(details => {
 
 // Restart extension
 chrome.runtime.onStartup.addListener(() => {
-	chrome.storage.local.clear().then(onCleared, onError)
+	chrome.storage.local.clear().then(onCleared, onError);
 });
 
 // @note Debugging storage
