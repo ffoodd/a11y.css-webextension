@@ -2,12 +2,12 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width">
 	<title>a11y.css</title>
 	<link rel="stylesheet" href="popup.css">
 </head>
 <body>
-	<div id="home">
+	<main id="home">
 		<h1 data-message="h1Allycss" class="localizeMe"></h1>
 
 		<form id="a11ycssForm" class="util">
@@ -32,9 +32,9 @@
 			</fieldset>
 
 			<p class="button-group">
-				<span data-message="btn_a11y_label" class="localizeMe sr-only"></span>
+				<span data-message="btn_a11y_label" id="btn_a11y_label" class="localizeMe sr-only"></span>
 				<button type="button" id="btn-a11y" role="switch"
-						aria-checked="false" aria_labelledby="btn_a11y_label">
+						aria-checked="false" aria-labelledby="btn_a11y_label">
 						<span data-message="a11ycssBtnClear" class="localizeMe unapply"></span>
 						<span data-message="a11ycssBtnApply" class="localizeMe apply"></span>
 				</button>
@@ -44,43 +44,41 @@
 		<div class="util">
 			<h2 data-message="h1Others" class="localizeMe"></h2>
 			<p class="button-group">
-				<span data-message="btn_outline_label" class="localizeMe"></span>
+				<span data-message="btn_outline_label" id="btn_outline_label" class="localizeMe"></span>
 				<button type="button" id="btn-outline" role="switch"
-						aria-checked="false" aria_labelledby="btn_outline_label">
+						aria-checked="false" aria-labelledby="btn_outline_label">
 						<span data-message="localizeOn" class="localizeMe"></span>
 						<span data-message="localizeOff" class="localizeMe"></span>
 				</button>
 			</p>
 			<p class="button-group">
-				<span data-message="btn_lang_label" class="localizeMe"></span>
+				<span data-message="btn_lang_label" id="btn_lang_label" class="localizeMe"></span>
 				<button type="button" id="btn-lang" role="switch"
-						aria-checked="false" aria_labelledby="btn_lang_label">
+						aria-checked="false" aria-labelledby="btn_lang_label">
 						<span data-message="localizeOn" class="localizeMe"></span>
 						<span data-message="localizeOff" class="localizeMe"></span>
 				</button>
 			</p>
 			<p class="button-group">
-				<span data-message="btn_alt_label" class="localizeMe"></span>
+				<span data-message="btn_alt_label" id="btn_alt_label" class="localizeMe"></span>
 				<button type="button" id="btn-alt" role="switch"
-						aria-checked="false" aria_labelledby="btn_alt_label">
+						aria-checked="false" aria-labelledby="btn_alt_label">
 						<span data-message="localizeOn" class="localizeMe"></span>
 						<span data-message="localizeOff" class="localizeMe"></span>
 				</button>
 			</p>
 			<p class="button-group">
-				<span data-message="btn_spacing_label" class="localizeMe"></span>
+				<span data-message="btn_spacing_label" id="btn_spacing_label" class="localizeMe"></span>
 				<button type="button" id="btn-spacing" role="switch"
-						aria-checked="false" aria_labelledby="btn_spacing_label">
+						aria-checked="false" aria-labelledby="btn_spacing_label">
 						<span data-message="localizeOn" class="localizeMe"></span>
 						<span data-message="localizeOff" class="localizeMe"></span>
 				</button>
 			</p>
 		</div>
-	</div>
+	</main>
 
-	<!-- generic scripts  -->
 	<script src="popup.js"></script>
-	<!-- proper functions -->
 	<script src="../scripts/init.js" type="module"></script>
 </body>
 

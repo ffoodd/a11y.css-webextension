@@ -1,45 +1,24 @@
 {
-	"_LOCALE": {
-		"message": "Français"
-	},
 	"a11ycssBtnApply": {
 		"message": "Afficher"
 	},
 	"a11ycssBtnClear": {
 		"message": "Masquer"
 	},
-	"a11ycssLanguageLabel": {
-		"message": "Langue"
-	},
 	"a11ycssLevel_all": {
 		"message": "Tout"
-	},
-	"a11ycssLevel_advices_only": {
-		"message": "Informations"
 	},
 	"a11ycssLevel_obsolete": {
 		"message": "Éléments obsolètes, Alertes et Erreurs"
 	},
-	"a11ycssLevel_obsolete_only": {
-		"message": "Éléments obsolètes"
-	},
 	"a11ycssLevel_warning": {
 		"message": "Alertes et Erreurs"
-	},
-	"a11ycssLevel_warning_only": {
-		"message": "Alertes"
 	},
 	"a11ycssLevel_error": {
 		"message": "Erreurs seulement"
 	},
-	"a11ycssLevel_error_only": {
-		"message": "Erreurs"
-	},
 	"a11ycssMinimumNoticeLevel": {
 		"message": "Niveau minimum"
-	},
-	"a11ycssSeparateLevels": {
-		"message": "Niveaux séparés"
 	},
 	"altEmpty": {
 		"message": "vide"
@@ -58,12 +37,6 @@
 	},
 	"btn_a11y_label": {
 		"message": "Afficher a11y.css"
-	},
-	"btnAllycss": {
-		"message": "Afficher a11y.css"
-	},
-	"btnA11ycssBack": {
-		"message": "Retour"
 	},
 	"btn_alt_label": {
 		"message": "Afficher les alternatives aux <code>img</code>"
