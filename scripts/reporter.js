@@ -3,16 +3,16 @@ import Setting from './setting.js';
 export default class Reporter extends Setting {
 	constructor(name) {
 		super(name);
-		const locale = document.body.getAttribute('lang');
+		const locale = chrome.i18n.getUILanguage();
 		this.icons = {
 			ok: chrome.runtime.getURL("/icons/ok.svg"),
 			ko: chrome.runtime.getURL("/icons/ko.svg"),
 			info: chrome.runtime.getURL("/icons/info.svg")
 		};
 		this.strings = {
-			ok: this.localize("altOK", locale),
-			ko: this.localize("altMissing", locale),
-			info: this.localize("altEmpty", locale)
+			ok: chrome.i18n.getMessage("altOK"),
+			ko: chrome.i18n.getMessage("altMissing"),
+			info: chrome.i18n.getMessage("altEmpty")
 		};
 		const button = document.getElementById(`btn-${name}`);
 		button.addEventListener('click', () => {
@@ -33,12 +33,6 @@ export default class Reporter extends Setting {
 				button.setAttribute('aria-checked', String(!checked));
 				super.storeStatus(name, !checked, tabs[0].id);
 			});
-	}
-
-	localize(string, locale) {
-		return (localeStrings[locale] && localeStrings[locale][string])
-			? localeStrings[locale][string]
-			: localeStrings['en'][string];
 	}
 }
 

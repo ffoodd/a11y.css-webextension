@@ -1,0 +1,89 @@
+{
+	"_LOCALE": {
+		"message": "Русский"
+	},
+	"a11ycssBtnApply": {
+		"message": "Показать"
+	},
+	"a11ycssBtnClear": {
+		"message": "Скрыть"
+	},
+	"a11ycssLanguageLabel": {
+		"message": "Язык"
+	},
+	"a11ycssLevel_all": {
+		"message": "Все"
+	},
+	"a11ycssLevel_advices_only": {
+		"message": "Рекомендуемое"
+	},
+	"a11ycssLevel_obsolete": {
+		"message": "Устаревшее, предупреждения и ошибки"
+	},
+	"a11ycssLevel_obsolete_only": {
+		"message": "Устаревшее"
+	},
+	"a11ycssLevel_warning": {
+		"message": "Предупреждения и ошибки"
+	},
+	"a11ycssLevel_warning_only": {
+		"message": "Предупреждения"
+	},
+	"a11ycssLevel_error": {
+		"message": "Только ошибки"
+	},
+	"a11ycssLevel_error_only": {
+		"message": "Ошибки"
+	},
+	"a11ycssMinimumNoticeLevel": {
+		"message": "Отобразить"
+	},
+	"a11ycssSeparateLevels": {
+		"message": "Разделить уровни"
+	},
+	"altEmpty": {
+		"message": "пустая строка"
+	},
+	"altMissing": {
+		"message": "отсутствует"
+	},
+	"altOK": {
+		"message": "OK"
+	},
+	"localizeOn": {
+		"message": "Вкл"
+	},
+	"localizeOff": {
+		"message": "Выкл"
+	},
+	"btn_a11y_label": {
+		"message": "Показать a11y.css"
+	},
+	"btnAllycss": {
+		"message": "Показать a11y.css"
+	},
+	"btnA11ycssBack": {
+		"message": "Назад"
+	},
+	"btn_alt_label": {
+		"message": "Показать <code>img</code> alt-ы"
+	},
+	"btn_spacing_label": {
+		"message": "Увеличить ширину текста"
+	},
+	"btn_outline_label": {
+		"message": "Подсветить элементы, получившие фокус"
+	},
+	"btn_lang_label": {
+		"message": "Показать используемые языковые атрибуты"
+	},
+	"h1Allycss": {
+		"message": "a11y.css"
+	},
+	"h1Allycss2": {
+		"message": "a11y.css: настройки"
+	},
+	"h1Others": {
+		"message": "Другие инструменты"
+	}
+}

@@ -5,7 +5,7 @@ export default class Option extends Setting {
 		super(name);
 		const button = document.getElementById(`btn-${name}`);
 		const options = document.querySelectorAll('[type="radio"]');
-		const locale = document.body.getAttribute('lang');
+		const locale = chrome.i18n.getUILanguage();
 		this.updateOptionState(name, options);
 		// @todo Should getting current Tab go there?
 		// Maybe in Setting parent class?
