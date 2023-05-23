@@ -32,9 +32,9 @@
 		"webext": "mkdir temp && npm run webext:cp && npm run webext:rename && npm run webext:mv",
 		"postwebext": "npm run webext:firefox && npm run webext:chrome",
 		"prewebext:firefox": "cp manifest-firefox.json manifest.json",
-		"webext:firefox": "zip -r -FS a11ycss-webextension-firefox.zip css icons popup scripts manifest.json",
+		"webext:firefox": "zip -r -FS a11ycss-webextension-firefox.zip css icons popup scripts _locales manifest.json",
 		"prewebext:chrome": "cp manifest-chrome.json manifest.json",
-		"webext:chrome": "zip -r -FS a11ycss-webextension-chrome.zip css icons popup scripts manifest.json"
+		"webext:chrome": "zip -r -FS a11ycss-webextension-chrome.zip css icons popup scripts _locales manifest.json"
 	},
 	"license": "MIT",
 	"repository": {

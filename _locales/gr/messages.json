@@ -1,0 +1,89 @@
+{
+	"_LOCALE": {
+		"message": "Ελληνικά"
+	},
+	"a11ycssBtnApply": {
+		"message": "Εμφάνιση"
+	},
+	"a11ycssBtnClear": {
+		"message": "Εκκαθάριση"
+	},
+	"a11ycssLanguageLabel": {
+		"message": "Γλώσσα"
+	},
+	"a11ycssLevel_all": {
+		"message": "Όλα"
+	},
+	"a11ycssLevel_advices_only": {
+		"message": "Συμβουλές"
+	},
+	"a11ycssLevel_obsolete": {
+		"message": "Παρωχημένα, Προειδοποιήσεις, και Σφάλματα"
+	},
+	"a11ycssLevel_obsolete_only": {
+		"message": "Παρωχημένα"
+	},
+	"a11ycssLevel_warning": {
+		"message": "Προειδοποιήσεις και Σφάλματα"
+	},
+	"a11ycssLevel_warning_only": {
+		"message": "Προειδοποιήσεις"
+	},
+	"a11ycssLevel_error": {
+		"message": "Μόνο Σφάλματα"
+	},
+	"a11ycssLevel_error_only": {
+		"message": "Σφάλματα"
+	},
+	"a11ycssMinimumNoticeLevel": {
+		"message": "Ελάχιστο Επίπεδο Αναφοράς"
+	},
+	"a11ycssSeparateLevels": {
+		"message": "Διαχωρισμός Επιπέδων"
+	},
+	"altEmpty": {
+		"message": "κενή"
+	},
+	"altMissing": {
+		"message": "λείπει"
+	},
+	"altOK": {
+		"message": "OK"
+	},
+	"localizeOn": {
+		"message": "Ενεργοποιημένη"
+	},
+	"localizeOff": {
+		"message": "Ανενεργή"
+	},
+	"btn_a11y_label": {
+		"message": "Εμφάνιση a11y.css"
+	},
+	"btnAllycss": {
+		"message": "Εμφάνιση a11y.css"
+	},
+	"btnA11ycssBack": {
+		"message": "Επιστροφή"
+	},
+	"btn_alt_label": {
+		"message": "Εμφάνιση εναλλακτικών <code>img</code>"
+	},
+	"btn_spacing_label": {
+		"message": "Αύξηση απόστασης κειμένου"
+	},
+	"btn_outline_label": {
+		"message": "Έμφαση Περιγράμματος"
+	},
+	"btn_lang_label": {
+		"message": "Εμφάνιση χρησιμοποιούμενων γλωσσών"
+	},
+	"h1Allycss": {
+		"message": "a11y.css"
+	},
+	"h1Allycss2": {
+		"message": "a11y.css: ρυθμίσεις"
+	},
+	"h1Others": {
+		"message": "Άλλα εργαλεία"
+	}
+}

@@ -1,5 +1,5 @@
 // isolation
-(function () {
+(() => {
 
 var a11ycss = a11ycss || {};
 
