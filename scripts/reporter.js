@@ -3,7 +3,6 @@ import Setting from './setting.js';
 export default class Reporter extends Setting {
 	constructor(name) {
 		super(name);
-		const locale = chrome.i18n.getUILanguage();
 		this.icons = {
 			ok: chrome.runtime.getURL("/icons/ok.svg"),
 			ko: chrome.runtime.getURL("/icons/ko.svg"),
