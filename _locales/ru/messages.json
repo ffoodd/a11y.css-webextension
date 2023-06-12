@@ -26,9 +26,6 @@
 	"altMissing": {
 		"message": "отсутствует"
 	},
-	"altOK": {
-		"message": "OK"
-	},
 	"localizeOn": {
 		"message": "Вкл"
 	},
@@ -58,5 +55,17 @@
 	},
 	"h1Others": {
 		"message": "Другие инструменты"
+	},
+	"scrollToImage": {
+		"message": "Прокрутите изображение"
+	},
+	"checkAltsHeading": {
+		"message": "$NUMBER$ изображений",
+		"placeholders": {
+			"number": {
+				"content": "$1",
+				"example": "6"
+			}
+		}
 	}
 }

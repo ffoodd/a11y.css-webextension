@@ -26,10 +26,13 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"<all_urls>"
+				"*://*/*"
 			],
 			"js": [
 				"/scripts/injected/checkalts.js"
+			],
+			"css": [
+				"/scripts/injected/checkalts.css"
 			],
 			"run_at": "document_end"
 		}
@@ -44,9 +47,9 @@
 			"icons/info.svg",
 			"icons/ko.svg",
 			"icons/ok.svg",
-			"scripts/injected/checkalts.js",
+			"scripts/injected/*",
 			"css/*"
 		],
-		"matches": ["<all_urls>"]
+		"matches": ["*://*/*"]
 	}]
 }

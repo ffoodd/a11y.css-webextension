@@ -26,9 +26,6 @@
 	"altMissing": {
 		"message": "λείπει"
 	},
-	"altOK": {
-		"message": "OK"
-	},
 	"localizeOn": {
 		"message": "Ενεργοποιημένη"
 	},
@@ -58,5 +55,17 @@
 	},
 	"h1Others": {
 		"message": "Άλλα εργαλεία"
+	},
+	"scrollToImage": {
+		"message": "Μετακινηθείτε στην εικόνα"
+	},
+	"checkAltsHeading": {
+		"message": "$NUMBER$ εικόνες",
+		"placeholders": {
+			"number": {
+				"content": "$1",
+				"example": "6"
+			}
+		}
 	}
 }

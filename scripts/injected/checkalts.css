@@ -1,0 +1,122 @@
+@media (prefers-reduced-motion: no-preference) {
+	:root {
+		scroll-behavior: smooth;
+	}
+}
+
+.a11css-active {
+	margin-left: 14rem;
+}
+
+#a11ycss-reporter {
+	background-color: #f7f7f7;
+	background-image:
+		radial-gradient(#0000001a 15%, transparent 16%),
+		radial-gradient(#0000001a 15%, transparent 16%);
+	background-position: 0 0, .25rem .25rem;
+	background-size: .5rem .5rem;
+	color: #3e4b55;
+	font-family: system-ui, sans-serif;
+	font-size: .8rem;
+	block-size: 100vh;
+	inset: 0 auto auto 0;
+	margin: 0;
+	overflow: auto;
+	padding: .5rem;
+	position: fixed;
+	inline-size: 14rem;
+	z-index: 2147483647;
+}
+
+#a11ycss-reporter h1 {
+	font-size: 1.25rem;
+	margin-inline-start: 1rem;
+}
+
+#a11ycss-reporter ol {
+	background: #fcf9e9;
+	border: 1px solid #e5dec8;
+	border-radius: .25rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#a11ycss-reporter li {
+	margin: 2rem 1rem;
+}
+
+#a11ycss-reporter figure {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	inline-size: 100%;
+}
+
+#a11ycss-reporter figcaption::before {
+	content: var(--a11ycss-icon);
+	inset: -.5rem auto auto -.5rem;
+	position: absolute;
+	z-index: 1;
+}
+
+#a11ycss-reporter img {
+	border: 1px solid #e5dec8;
+	border-radius: .25rem;
+	block-size: auto;
+	inline-size: auto;
+	margin-block-end: .5rem;
+	max-inline-size: 100%;
+	padding: 1rem;
+}
+
+#a11ycss-reporter figure:hover img {
+	background: #fff;
+}
+
+#a11ycss-reporter dl {
+	padding-inline-start: 1rem;
+}
+
+#a11ycss-reporter dt {
+	clear: left;
+	float: left;
+	font-weight: 400;
+}
+
+#a11ycss-reporter dt::after {
+	content: "=";
+	margin-inline: .5ch;
+}
+
+#a11ycss-reporter dd {
+	font-weight: 700;
+	margin: 0;
+}
+
+#a11ycss-reporter code {
+	color: rebeccapurple;
+	font-family: monospace;
+}
+
+#a11ycss-reporter a {
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 2;
+}
+
+/* ==================== */
+/* == .visually-hidden
+/* ==================== */
+#a11ycss-reporter .visually-hidden {
+	border: 0;
+	block-size: 1px;
+	clip-path: inset(50%);
+	inline-size: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+}
