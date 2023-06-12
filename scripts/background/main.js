@@ -4,11 +4,11 @@
 	? chrome
 	: browser; */
 
-function onError(error) {
+const onError = (error) => {
 	console.error(`a11y.css error: ${error}`);
 }
 
-function onCleared() {
+const onCleared = () => {
 	console.info(`a11y.css storage.local cleared`);
 }
 

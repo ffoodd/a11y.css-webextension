@@ -60,7 +60,7 @@
 		"message": "Scroll to image"
 	},
 	"checkAltsHeading": {
-		"message": "$NUMBER$ images",
+		"message": "$number$ images",
 		"placeholders": {
 			"number": {
 				"content": "$1",
