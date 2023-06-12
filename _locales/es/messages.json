@@ -26,9 +26,6 @@
 	"altMissing": {
 		"message": "falta"
 	},
-	"altOK": {
-		"message": "OK"
-	},
 	"localizeOn": {
 		"message": "On"
 	},
@@ -58,5 +55,17 @@
 	},
 	"h1Others": {
 		"message": "Otras herramientas"
+	},
+	"scrollToImage": {
+		"message": "Desplácese hasta la imagen"
+	},
+	"checkAltsHeading": {
+		"message": "$NUMBER$ imágenes",
+		"placeholders": {
+			"number": {
+				"content": "$1",
+				"example": "6"
+			}
+		}
 	}
 }
