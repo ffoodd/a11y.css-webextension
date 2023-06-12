@@ -159,6 +159,7 @@ button:active {
 	border-radius: 1rem;
 	box-sizing: content-box;
 	block-size: 2rem;
+	cursor: pointer;
 	font: inherit;
 	inline-size: 4rem;
 	line-height: 2rem;
@@ -185,6 +186,11 @@ button:active {
 	transform: none;
 	transition: transform .3s cubic-bezier(0, .5, .5, 1) 0s;
 	will-change: transform;
+}
+
+[role="switch"][aria-disabled="true"] {
+	background-color: #666;
+	cursor: not-allowed;
 }
 
 [role="switch"][aria-checked="true"] {
