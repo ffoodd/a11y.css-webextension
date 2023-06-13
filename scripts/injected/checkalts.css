@@ -28,6 +28,11 @@
 	z-index: 2147483647;
 }
 
+#a11ycss-reporter * {
+	all: initial
+	/* @todo Redo styles */
+}
+
 #a11ycss-reporter h1 {
 	font-size: 1.25rem;
 	margin-inline-start: 1rem;
@@ -95,6 +100,7 @@
 }
 
 #a11ycss-reporter code {
+	background: #fcf9e9;
 	color: rebeccapurple;
 	font-family: monospace;
 }
