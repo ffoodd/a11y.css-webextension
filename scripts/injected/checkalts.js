@@ -25,7 +25,7 @@
 
 		for (const image of images) {
 			const target = `a11ycss-${Math.floor(Math.random() * Date.now()).toString(36)}`;
-			const anchor = document.createRange().createContextualFragment(`<a id="${target}"></a>`);
+			const anchor = document.createRange().createContextualFragment(`<a id="${target}" style="--a11ycss-offset: ${image.height / 32}rem"></a>`);
 			image.parentNode.insertBefore(anchor, image);
 
 			let alt = '';
