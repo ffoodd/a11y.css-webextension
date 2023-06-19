@@ -1,11 +1,5 @@
-@media (prefers-reduced-motion: no-preference) {
-	:root {
-		scroll-behavior: smooth;
-	}
-}
-
 .a11css-active {
-	margin-left: 14rem;
+	margin-inline-start: 14rem;
 }
 
 #a11ycss-reporter {
@@ -15,8 +9,7 @@
 		radial-gradient(#0000001a 15%, transparent 16%);
 	background-position: 0 0, .25rem .25rem;
 	background-size: .5rem .5rem;
-	color: #3e4b55;
-	font-family: system-ui, sans-serif;
+	contain: style;
 	font-size: .8rem;
 	block-size: 100vh;
 	inset: 0 auto auto 0;
@@ -25,12 +18,14 @@
 	padding: .5rem;
 	position: fixed;
 	inline-size: 14rem;
-	z-index: 2147483647;
+	z-index: 2147483646;
 }
 
 #a11ycss-reporter * {
-	all: initial
-	/* @todo Redo styles */
+	all: revert;
+	box-sizing: border-box;
+	color: #3e4b55;
+	font-family: system-ui, sans-serif;
 }
 
 #a11ycss-reporter h1 {
@@ -59,7 +54,9 @@
 }
 
 #a11ycss-reporter figcaption::before {
+	block-size: 1.5rem;
 	content: var(--a11ycss-icon);
+	inline-size: 1.5rem;
 	inset: -.5rem auto auto -.5rem;
 	position: absolute;
 	z-index: 1;
@@ -75,8 +72,11 @@
 	padding: 1rem;
 }
 
-#a11ycss-reporter figure:hover img {
-	background: #fff;
+#a11ycss-reporter a {
+	content: "";
+	inset: 0;
+	position: absolute;
+	z-index: 2;
 }
 
 #a11ycss-reporter dl {
@@ -105,11 +105,51 @@
 	font-family: monospace;
 }
 
-#a11ycss-reporter a {
+/* ==================== */
+/* == Interactions
+/* ==================== */
+#a11ycss-reporter figure:hover img {
+	background: #fff;
+}
+
+#a11ycss-reporter figure:focus-within img {
+	box-shadow:
+		0 0 0 .125rem #fcf9e9,
+		0 0 0 .25rem rebeccapurple;
+}
+
+#a11ycss-reporter figure:focus-within a:focus-visible {
+	outline: none;
+}
+
+/* ==================== */
+/* == Image highlight
+/* ==================== */
+@media (prefers-reduced-motion: no-preference) {
+	:root {
+		scroll-behavior: smooth;
+	}
+}
+
+:target {
+	display: block;
+	scroll-margin-top: calc(50vh - var(--a11ycss-offset));
+}
+
+:target + img {
+	background-color: #fff;
+	box-shadow: 0 0 10rem 10rem #fffc;
+	position: relative;
+	z-index: 2147483647;
+}
+
+/* @note Essayer element(), pour Firefox ? */
+:root:has(:target) #a11ycss-reporter::after {
+	backdrop-filter: blur(.125rem) grayscale(25%);
+	background-color: #fcf9e999;
 	content: "";
-	inset: 0;
-	position: absolute;
-	z-index: 2;
+	inset: 0 0 0 14rem;
+	position: fixed;
 }
 
 /* ==================== */
