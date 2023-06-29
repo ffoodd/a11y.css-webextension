@@ -7,13 +7,7 @@ export default class Reporter extends Setting {
 		if ( typeof browser !== 'undefined' ) {
 			// Firefox
 			browser.runtime.onMessage.addListener(message => {
-				if (message.a11ycss_images_number === 0) {
-					button.setAttribute('aria-disabled', 'true');
-				} else {
-					button.addEventListener('click', () => {
-						this.clickHandler(name, button);
-					});
-				}
+				this.enableButton(button, name, message?.a11ycss_images_number === 0);
 			});
 		} else {
 			// Edge, Chrome
@@ -21,13 +15,7 @@ export default class Reporter extends Setting {
 				.then(tabs => {
 					chrome.tabs.sendMessage(tabs[0].id, {a11ycss_should_checkalts: true})
 						.then(response => {
-							if (response === 'isUseless') {
-								button.setAttribute('aria-disabled', 'true');
-							} else {
-								button.addEventListener('click', () => {
-									this.clickHandler(name, button);
-								});
-							}
+							this.enableButton(button, name, response === 'isUseless');
 						}).then(this.onGot, this.onError);
 				}).then(this.onGot, this.onError);
 		}
@@ -41,6 +29,16 @@ export default class Reporter extends Setting {
 				button.setAttribute('aria-checked', String(!checked));
 				super.storeStatus(name, !checked, tabs[0].id);
 			});
+	}
+
+	enableButton(button, name, isUseless) {
+		if (isUseless) {
+			button.setAttribute('aria-disabled', 'true');
+		} else {
+			button.addEventListener('click', () => {
+				this.clickHandler(name, button);
+			});
+		}
 	}
 }
 
