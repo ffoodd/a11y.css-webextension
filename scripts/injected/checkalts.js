@@ -4,7 +4,7 @@
 
 	if ( typeof browser !== 'undefined' ) {
 		// Firefox
-		browser.runtime.sendMessage({a11ycss_images_number: number});
+		browser.runtime.sendMessage({ a11ycss_images_number: number });
 	} else {
 		// Edge, Chrome
 		if (number === 0) {
@@ -99,7 +99,10 @@
 		}
 	}
 
-	chrome.runtime.onMessage.addListener(message => {
+	chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+		if (message.getImagesCount && typeof browser !== 'undefined') {
+			sendResponse(number);
+		}
 		if (message.a11ycss_action && message.a11ycss_action === "alt") {
 			toggleReporter(images);
 		}
