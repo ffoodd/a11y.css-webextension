@@ -24,7 +24,9 @@
 		"build:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css",
 		"postbuild:css": "postcss css/*.css -r -m -u autoprefixer cssnano",
 		"watch:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css -w",
-		"test": "stylelint \"./sass/**/*.scss\"",
+		"test": "concurrently \"npm:lint:*\"",
+		"lint:styles": "stylelint \"./sass/**/*.scss\"",
+		"lint:ext": "addons-linter a11ycss-webextension-firefox.zip --min-manifest-version=3 --max-manifest-version=3 --enable-background-service-worker=true --disable-linter-rules=no-unsanitized/property,no-unsanitized/method",
 		"prewebext": "rm -rf temp && rm -rf css/a11y-*.css && cp -r node_modules/a11y.css/css/a11y-*_*.css ./css",
 		"webext:cp": "cp -r node_modules/a11y.css/css/a11y-??.css temp && cp -r node_modules/a11y.css/css/a11y-?????.css temp",
 		"webext:rename": "cd temp && rename 's/a11y-(.{2,5}).*(.css)$/a11y-$1_all$2/' *.css && cd ..",
@@ -51,6 +53,7 @@
 		"a11y.css": "^5.2.0"
 	},
 	"devDependencies": {
+		"addons-linter": "^6.9.0",
 		"autoprefixer": "^10.4.8",
 		"concurrently": "^7.3.0",
 		"cssnano": "^5.1.13",
