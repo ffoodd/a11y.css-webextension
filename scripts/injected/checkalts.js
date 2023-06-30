@@ -1,8 +1,12 @@
 (() => {
+	isFirefox = () => {
+		return typeof browser !== 'undefined';
+	}
+
 	const images = document.getElementsByTagName('img');
 	const number = images.length;
 
-	if ( typeof browser !== 'undefined' ) {
+	if ( isFirefox() ) {
 		// Firefox
 		browser.runtime.sendMessage({ a11ycss_images_number: number });
 	} else {
@@ -100,7 +104,7 @@
 	}
 
 	chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-		if (message.getImagesCount && typeof browser !== 'undefined') {
+		if (message.getImagesCount && isFirefox()) {
 			sendResponse(number);
 		}
 		if (message.a11ycss_action && message.a11ycss_action === "alt") {

@@ -4,31 +4,27 @@ export default class Reporter extends Setting {
 	constructor(name) {
 		super(name);
 		const button = document.getElementById(`btn-${name}`);
-		if ( typeof browser !== 'undefined' ) {
-			// Firefox
+		const tab = super.getCurrentTab();
+		if ( super.isFirefox() ) {
 			browser.runtime.onMessage.addListener(message => {
 				this.enableButton(button, name, message?.a11ycss_images_number === 0);
 			});
 		} else {
-			// Edge, Chrome
-			chrome.tabs.query({active: true, currentWindow: true})
-				.then(tabs => {
-					chrome.tabs.sendMessage(tabs[0].id, {a11ycss_should_checkalts: true})
-						.then(response => {
-							this.enableButton(button, name, response === 'isUseless');
-						}).then(this.onGot, this.onError);
-				}).then(this.onGot, this.onError);
+			super.getCurrentTab().then(tab => {
+				chrome.tabs.sendMessage(tab.id, {a11ycss_should_checkalts: true})
+					.then(response => {
+						this.enableButton(button, name, response === 'isUseless');
+					});
+			})
 		}
 	}
 
-	clickHandler(name, button, filename = name) {
+	async clickHandler(name, button, filename = name) {
 		let checked = button.getAttribute('aria-checked') === 'true' || false;
-		chrome.tabs.query({ active: true, currentWindow: true })
-			.then(tabs => {
-				chrome.tabs.sendMessage(tabs[0].id, { a11ycss_action: name });
-				button.setAttribute('aria-checked', String(!checked));
-				super.storeStatus(name, !checked, tabs[0].id);
-			});
+		const tab = await super.getCurrentTab();
+		void chrome.tabs.sendMessage(tab.id, { a11ycss_action: name });
+		button.setAttribute('aria-checked', String(!checked));
+		void super.storeStatus(name, !checked, tab.id);
 	}
 
 	enableButton(button, name, isUseless) {
@@ -36,7 +32,7 @@ export default class Reporter extends Setting {
 			button.setAttribute('aria-disabled', 'true');
 		} else {
 			button.addEventListener('click', () => {
-				this.clickHandler(name, button);
+				void this.clickHandler(name, button);
 			});
 		}
 	}
