@@ -43,3 +43,6 @@ jobs:
 
       - name: Package webextensions
         run: npm run webext
+
+      - name: Lint
+        run: npm t
