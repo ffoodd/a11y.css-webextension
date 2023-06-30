@@ -1,21 +1,7 @@
-// @todo Use browser namespace when possible?
-// @note If doing so, this is needed in every context
-/*const browser = typeof browser === 'undefined'
-	? chrome
-	: browser; */
-
-const onError = (error) => {
-	console.error(`a11y.css error: ${error}`);
-}
-
-const onCleared = () => {
-	console.info(`a11y.css storage.local cleared`);
-}
-
 // Refresh tab
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 	if (changeInfo.status === 'complete') {
-		chrome.storage.local.clear().then(onCleared, onError);
+		chrome.storage.local.clear();
 	}
 
 	if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
@@ -36,13 +22,13 @@ chrome.tabs.onCreated.addListener(tab => {
 // Update extension
 chrome.runtime.onInstalled.addListener(details => {
 	if (details.reason === 'update') {
-		chrome.storage.local.clear().then(onCleared, onError);
+		chrome.storage.local.clear();
 	}
 });
 
 // Restart extension
 chrome.runtime.onStartup.addListener(() => {
-	chrome.storage.local.clear().then(onCleared, onError);
+	chrome.storage.local.clear();
 });
 
 // @note Debugging storage

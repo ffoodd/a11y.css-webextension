@@ -1,50 +1,42 @@
 export default class Setting {
 	constructor(name) {
 		const button = document.getElementById(`btn-${name}`);
-		this.updateButtonState(name, button);
+		this.getCurrentTab().then(tab => {
+			void this.updateButtonState(name, button, tab.id);
+		});
 	}
 
-	onError(error) {
-		console.error(`a11y.css error: ${error}`);
+	async getCurrentTab() {
+		const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+		return tab;
 	}
 
-	onGot(item) {
-		if (item) {
-			console.info(`a11y.css got`, item);
-		} else {
-			console.info('Item was set');
-		}
+	isFirefox() {
+		return typeof browser !== 'undefined';
 	}
 
-	toggleCSS(filename, tabID, checked) {
+	toggleCSS(filename, tabId, checked) {
 		if (checked) {
 			chrome.scripting.removeCSS({
-				target: {tabId: tabID},
+				target: {tabId: tabId},
 				files: [`/css/${filename}.css`]
 			});
 		} else {
 			chrome.scripting.insertCSS({
-				target: {tabId: tabID},
+				target: {tabId: tabId},
 				files: [`/css/${filename}.css`]
 			});
 		}
 	}
 
-	storeStatus(name, status, tabId) {
-		chrome.storage.local.set({
-			[`${tabId}-${name}`]: status
-		}).then(this.onGot, this.onError);
+	async storeStatus(name, status, tabId) {
+		await chrome.storage.local.set({ [`${tabId}-${name}`]: status });
 	}
 
-	updateButtonState(name, button) {
-		chrome.tabs.query({ active: true, currentWindow: true })
-			.then(tabs => {
-				chrome.storage.local.get(`${tabs[0].id}-${name}`)
-					.then(setting => {
-						const state = setting[`${tabs[0].id}-${name}`];
-						button.setAttribute('aria-checked', (typeof state !== 'undefined') ? String(state) : 'false');
-					}).then(this.onGot, this.onError);
-			}).then(this.onGot, this.onError);
+	async updateButtonState(name, button, tabId) {
+		const setting = await chrome.storage.local.get(`${tabId}-${name}`);
+		const state = setting[`${tabId}-${name}`];
+		button.setAttribute('aria-checked', (typeof state !== 'undefined') ? String(state) : 'false');
 	}
 }
 
