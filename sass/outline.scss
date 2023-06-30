@@ -2,7 +2,7 @@
 @import 'a11y.css/sass/utils/variables';
 
 *:focus {
-  background: rgba(theme-conf('error', 'color'), 10%) !important;
-  color: theme-conf('error', 'color') !important;
-  outline: 2px dotted currentcolor !important;
+	background: rgba(theme-conf('error', 'color'), 10%) !important;
+	color: theme-conf('error', 'color') !important;
+	outline: 2px dotted currentcolor !important;
 }
