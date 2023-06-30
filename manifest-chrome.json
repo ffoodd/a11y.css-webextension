@@ -29,10 +29,10 @@
 				"*://*/*"
 			],
 			"js": [
-				"/scripts/injected/checkalts.js"
+				"/scripts/injected/alt.js"
 			],
 			"css": [
-				"/scripts/injected/checkalts.css"
+				"/scripts/injected/alt.css"
 			],
 			"run_at": "document_end"
 		}
