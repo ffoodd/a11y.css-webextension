@@ -136,20 +136,24 @@
 	scroll-margin-top: calc(50vh - var(--a11ycss-offset));
 }
 
-:target + img {
-	background-color: #fff;
-	box-shadow: 0 0 10rem 10rem #fffc;
-	position: relative;
-	z-index: 2147483647;
+@keyframes focus {
+	from {
+		outline-offset: 10vw;
+	}
+
+	to {
+		outline: 8px double rebeccapurple;
+		outline-offset: 1rem;
+	}
 }
 
-/* @note Essayer element(), pour Firefox ? */
-:root:has(:target) #a11ycss-reporter::after {
-	backdrop-filter: blur(.125rem) grayscale(25%);
-	background-color: #fcf9e999;
-	content: "";
-	inset: 0 0 0 14rem;
-	position: fixed;
+:target + img {
+	animation: .5s focus .1s ease-out 1 forwards;
+	background-color: #fff;
+	box-shadow: 0 0 10rem 10rem #fffc;
+	border-radius: .5rem;
+	position: relative;
+	z-index: 2147483647;
 }
 
 /* ==================== */

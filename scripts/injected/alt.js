@@ -63,21 +63,21 @@
 			}
 
 			const figure = `<li>
-			<figure role="group">
-				<img src="${image.src}" alt="">
-				<figcaption style="--a11ycss-icon: url(${icon})">
-					<dl>
-						<dt><code>alt</code></dt>
-						<dd>${alt}</dd>
-						<dt><code>title</code></dt>
-						<dd>${title}</dd>
-					</dl>
-					<a href="#${target}" title="${chrome.i18n.getMessage("scrollToImage")}">
-						<span class="visually-hidden">${chrome.i18n.getMessage("scrollToImage")}</span>
-					</a>
-				</figcaption>
-			</figure>
-		</li>`;
+				<figure role="group">
+					<img src="${image.src}" alt="">
+					<figcaption style="--a11ycss-icon: url(${icon})">
+						<dl>
+							<dt><code>alt</code></dt>
+							<dd>${alt}</dd>
+							<dt><code>title</code></dt>
+							<dd>${title}</dd>
+						</dl>
+						<a href="#${target}" title="${chrome.i18n.getMessage("scrollToImage")}">
+							<span class="visually-hidden">${chrome.i18n.getMessage("scrollToImage")}</span>
+						</a>
+					</figcaption>
+				</figure>
+			</li>`;
 
 			const item = document.createRange().createContextualFragment(figure);
 			list.appendChild(item);
