@@ -1,0 +1,22 @@
+version: 2
+updates:
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+          interval: weekly
+          day: monday
+          time: "12:00"
+          timezone: Europe/Paris
+    - package-ecosystem: npm
+      directory: "/"
+      reviewers:
+          - ffoodd
+      labels:
+          - dependencies
+      schedule:
+          interval: weekly
+          day: monday
+          time: "12:00"
+          timezone: Europe/Paris
+      versioning-strategy: increase
+      rebase-strategy: disabled
