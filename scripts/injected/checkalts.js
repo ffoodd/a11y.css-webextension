@@ -8,13 +8,13 @@
 
 	if ( isFirefox() ) {
 		// Firefox
-		browser.runtime.sendMessage({ a11ycss_images_number: number });
+		browser.runtime.sendMessage({ a11ycss_reporter: 'alt', a11ycss_reported: number });
 	} else {
 		// Edge, Chrome
 		if (number === 0) {
 			chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-				if (message.a11ycss_should_checkalts) {
-					sendResponse('isUseless');
+				if (message.a11ycss_should_report && message.a11ycss_should_report === 'alt') {
+					sendResponse('nope');
 				}
 			});
 		}

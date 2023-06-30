@@ -7,13 +7,15 @@ export default class Reporter extends Setting {
 		const tab = super.getCurrentTab();
 		if ( super.isFirefox() ) {
 			browser.runtime.onMessage.addListener(message => {
-				this.enableButton(button, name, message?.a11ycss_images_number === 0);
+				if (message.a11ycss_reporter && message.a11ycss_reporter === name) {
+					this.enableButton(button, name, message.a11ycss_reported === 0);
+				}
 			});
 		} else {
 			super.getCurrentTab().then(tab => {
-				chrome.tabs.sendMessage(tab.id, {a11ycss_should_checkalts: true})
+				chrome.tabs.sendMessage(tab.id, { a11ycss_should_report: name })
 					.then(response => {
-						this.enableButton(button, name, response === 'isUseless');
+						this.enableButton(button, name, response === 'nope');
 					});
 			})
 		}
