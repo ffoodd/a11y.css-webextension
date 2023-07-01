@@ -9,9 +9,15 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+quote_type = double
 
-[*.md]
-trim_trailing_whitespace = false
+[*.{html,js,css}]
+block_comment_start = /**
+block_comment = *
+block_comment_end = */
+
+[*.js]
+quote_type = single
 
 [*.svg]
 insert_final_newline = false
