@@ -29,12 +29,13 @@
 		"build:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css",
 		"postbuild:css": "postcss css/{lang,outline,spacing}.css -r -m -u autoprefixer cssnano",
 		"watch:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css -w",
-		"webext": "shx cp -r node_modules/a11y.css/css/a11y-{ar,en,es,fr,gr,pl,pt-br,ru,zh}.css node_modules/a11y.css/css/a11y-{ar,en,es,fr,gr,pl,pt-br,ru,zh}_{error,obsolete,warning}.css ./css",
-		"postwebext": "npm run webext:firefox && npm run webext:chrome",
-		"prewebext:firefox": "shx cp manifest-firefox.json manifest.json",
-		"webext:firefox": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-firefox.zip",
-		"prewebext:chrome": "shx cp manifest-chrome.json manifest.json",
-		"webext:chrome": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-chrome.zip"
+		"prebuild": "npm run build:css",
+		"build": "shx cp -r node_modules/a11y.css/css/a11y-{ar,en,es,fr,gr,pl,pt-br,ru,zh}.css node_modules/a11y.css/css/a11y-{ar,en,es,fr,gr,pl,pt-br,ru,zh}_{error,obsolete,warning}.css ./css",
+		"postbuild": "npm run build:firefox && npm run build:chrome",
+		"prebuild:firefox": "shx cp manifest-firefox.json manifest.json",
+		"build:firefox": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-firefox.zip",
+		"prebuild:chrome": "shx cp manifest-chrome.json manifest.json",
+		"build:chrome": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-chrome.zip"
 	},
 	"license": "MIT",
 	"repository": {
