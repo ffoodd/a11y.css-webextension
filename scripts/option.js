@@ -10,7 +10,7 @@ export default class Option extends Setting {
 			void this.updateOptionState(name, options, tab.id);
 			button.addEventListener('click', () => {
 				const selectedOption = document.querySelector(`[name="option-${name}"]:checked`);
-				const selected = selectedOption ? selectedOption.value : 'all';
+				const selected = selectedOption && selectedOption.value !== 'all' ? `_${selectedOption.value}` : '';
 				this.clickHandler(name, button, tab.id, selected, locale, options);
 			});
 		})
@@ -18,11 +18,11 @@ export default class Option extends Setting {
 
 	clickHandler(name, button, tabId, selected, locale, options) {
 		let checked = button.getAttribute('aria-checked') === 'true' || false;
-		super.toggleCSS(`${name}-${locale}_${selected}`, tabId, checked);
+		super.toggleCSS(`${name}-${locale}${selected}`, tabId, checked);
 		button.setAttribute('aria-checked', !checked);
 		options.forEach(el => el.disabled = !checked);
 		void super.storeStatus(`${name}`, !checked, tabId);
-		void super.storeStatus(`${name}-option`, selected, tabId);
+		void super.storeStatus(`${name}-option`, selected !== '' ? selected : 'all', tabId);
 	}
 
 	async updateOptionState(name, options, tabId) {
