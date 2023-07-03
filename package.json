@@ -1,6 +1,6 @@
 {
 	"title": "Web Extension for a11y.css",
-	"name": "a11y.css-webextension",
+	"name": "a11ycss-webextension",
 	"description": "Chromium and Firefox web extension for a11y.css",
 	"version": "2.0.0",
 	"author": {
@@ -25,7 +25,7 @@
 		"version": "json -I -f manifest-firefox.json -e \"this.version='$npm_package_version'\" && json -I -f manifest-chrome.json -e \"this.version='$npm_package_version'\" && npm run webext && git add .",
 		"test": "concurrently \"npm:lint:*\"",
 		"lint:styles": "stylelint \"./sass/**/*.scss\"",
-		"lint:ext": "addons-linter a11ycss-webextension-firefox.zip --min-manifest-version=3 --max-manifest-version=3 --enable-background-service-worker=true --disable-linter-rules=no-unsanitized/property,no-unsanitized/method",
+		"lint:ext": "cross-env-shell web-ext lint -s $npm_package_name-$npm_package_version-firefox.zip",
 		"build:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css",
 		"postbuild:css": "postcss css/*.css -r -m -u autoprefixer cssnano",
 		"watch:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css -w",
@@ -36,9 +36,9 @@
 		"webext": "shx mkdir temp && npm run webext:cp && npm run webext:rename && npm run webext:mv",
 		"postwebext": "npm run webext:firefox && npm run webext:chrome",
 		"prewebext:firefox": "shx cp manifest-firefox.json manifest.json",
-		"webext:firefox": "zip -r -FS a11ycss-webextension-firefox.zip css icons popup scripts _locales manifest.json",
+		"webext:firefox": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-firefox.zip",
 		"prewebext:chrome": "shx cp manifest-chrome.json manifest.json",
-		"webext:chrome": "zip -r -FS a11ycss-webextension-chrome.zip css icons popup scripts _locales manifest.json"
+		"webext:chrome": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-chrome.zip"
 	},
 	"license": "MIT",
 	"repository": {
@@ -55,9 +55,9 @@
 		"a11y.css": "^5.2.0"
 	},
 	"devDependencies": {
-		"addons-linter": "^6.9.0",
 		"autoprefixer": "^10.4.14",
 		"concurrently": "^8.2.0",
+		"cross-env": "^7.0.3",
 		"cssnano": "^6.0.1",
 		"json": "^11.0.0",
 		"postcss": "^8.4.16",
@@ -67,7 +67,21 @@
 		"stylelint": "^15.9.0",
 		"stylelint-config-recommended": "^12.0.0",
 		"stylelint-config-standard-scss": "^10.0.0",
-		"stylelint-stylistic": "^0.4.2"
+		"stylelint-stylistic": "^0.4.2",
+		"web-ext": "^7.6.2"
+	},
+	"webExt": {
+		"artifactsDir": "./",
+		"ignoreFiles": [
+			"package.json",
+			"package-lock.json",
+			"manifest-*.json",
+			"sass",
+			"temp"
+		],
+		"build": {
+			"overwriteDest": true
+		}
 	},
 	"stylelint": {
 		"extends": [
