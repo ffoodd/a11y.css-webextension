@@ -8,6 +8,7 @@
 		"url": "https://www.ffoodd.fr",
 		"email": "gael+npm@ffoodd.fr"
 	},
+	"homepage": "https://ffoodd.github.io/a11y.css/",
 	"keywords": [
 		"a11y",
 		"accessibility",
@@ -34,8 +35,10 @@
 		"postbuild": "npm run build:firefox && npm run build:chrome",
 		"prebuild:firefox": "shx cp manifest-firefox.json manifest.json",
 		"build:firefox": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-firefox.zip",
+		"load:firefox": "web-ext run -t firefox-desktop --browser-console",
 		"prebuild:chrome": "shx cp manifest-chrome.json manifest.json",
-		"build:chrome": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-chrome.zip"
+		"build:chrome": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-chrome.zip",
+		"load:chrome": "web-ext run -t chromium --devtools"
 	},
 	"license": "MIT",
 	"repository": {
@@ -78,6 +81,10 @@
 		],
 		"build": {
 			"overwriteDest": true
+		},
+		"run": {
+			"devtools": true,
+			"startUrl": ["https://ffoodd.github.io/a11y.css/"]
 		}
 	},
 	"stylelint": {
