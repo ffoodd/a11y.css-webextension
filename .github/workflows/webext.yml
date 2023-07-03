@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Package webextensions
-        run: npm run webext
+        run: npm run build
 
       - name: Lint
         run: npm t
