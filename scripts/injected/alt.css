@@ -9,7 +9,7 @@
 	}
 }
 
-.a11css-active :target {
+.a11css-active :target[id^="a11ycss"] {
 	display: block;
 	scroll-margin-top: calc(50vh - var(--a11ycss-offset));
 }
@@ -25,7 +25,7 @@
 	}
 }
 
-.a11css-active :target + img {
+.a11css-active :target[id^="a11ycss"] + img {
 	animation: .5s focus .1s ease-out 1 forwards;
 	background-color: #fff;
 	box-shadow: 0 0 10rem 10rem #fffc;
