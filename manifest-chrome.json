@@ -1,55 +1,59 @@
 {
-	"manifest_version": 3,
-	"name": "a11y.css",
-	"description": "a11y.css provides warnings about possible risks and mistakes that exist in HTML.",
-	"version": "2.0.0",
-	"default_locale": "en",
-	"minimum_chrome_version": "93",
-	"permissions": [
-		"activeTab",
-		"tabs",
-		"storage",
-		"scripting"
-	],
-	"action": {
-		"default_title": "a11y.css",
-		"default_popup": "popup/index.html",
-		"default_icon": {
-			"19": "icons/a11y-css_19.png",
-			"38": "icons/a11y-css_38.png"
-		}
-	},
-	"background": {
-		"service_worker": "/scripts/background/main.js",
-		"type": "module"
-	},
-	"content_scripts": [
-		{
-			"matches": [
-				"*://*/*"
-			],
-			"js": [
-				"/scripts/injected/alt.js"
-			],
-			"css": [
-				"/scripts/injected/alt.css"
-			],
-			"run_at": "document_end"
-		}
-	],
-	"icons": {
-		"16": "icons/a11y-css_16.png",
-		"48": "icons/a11y-css_48.png",
-		"128": "icons/a11y-css_128.png"
-	},
-	"web_accessible_resources": [{
-		"resources": [
-			"icons/info.svg",
-			"icons/ko.svg",
-			"icons/ok.svg",
-			"scripts/injected/*",
-			"css/*"
-		],
-		"matches": ["*://*/*"]
-	}]
+  "manifest_version": 3,
+  "name": "a11y.css",
+  "description": "a11y.css provides warnings about possible risks and mistakes that exist in HTML.",
+  "version": "2.0.1",
+  "default_locale": "en",
+  "minimum_chrome_version": "93",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "scripting"
+  ],
+  "action": {
+    "default_title": "a11y.css",
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "19": "icons/a11y-css_19.png",
+      "38": "icons/a11y-css_38.png"
+    }
+  },
+  "background": {
+    "service_worker": "/scripts/background/main.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "/scripts/injected/alt.js"
+      ],
+      "css": [
+        "/scripts/injected/alt.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "icons/a11y-css_16.png",
+    "48": "icons/a11y-css_48.png",
+    "128": "icons/a11y-css_128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/info.svg",
+        "icons/ko.svg",
+        "icons/ok.svg",
+        "scripts/injected/*",
+        "css/*"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
+  ]
 }

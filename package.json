@@ -2,7 +2,7 @@
 	"title": "Web Extension for a11y.css",
 	"name": "a11ycss-webextension",
 	"description": "Chromium and Firefox web extension for a11y.css",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"author": {
 		"name": "Gaël Poupard",
 		"url": "https://www.ffoodd.fr",
