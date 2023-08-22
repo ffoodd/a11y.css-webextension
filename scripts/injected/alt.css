@@ -2,6 +2,38 @@
 	margin-inline-start: 14rem;
 }
 
+/* == Image highlight */
+@media (prefers-reduced-motion: no-preference) {
+	:root {
+		scroll-behavior: smooth;
+	}
+}
+
+.a11css-active :target[id^="a11ycss"] {
+	display: block;
+	scroll-margin-top: calc(50vh - var(--a11ycss-offset));
+}
+
+@keyframes focus {
+	from {
+		outline-offset: 10vw;
+	}
+
+	to {
+		outline: 8px double rebeccapurple;
+		outline-offset: 1rem;
+	}
+}
+
+.a11css-active :target[id^="a11ycss"] + img {
+	animation: .5s focus .1s ease-out 1 forwards;
+	background-color: #fff;
+	box-shadow: 0 0 10rem 10rem #fffc;
+	border-radius: .5rem;
+	position: relative;
+	z-index: 2147483647;
+}
+
 #a11ycss-reporter {
 	background-color: #f7f7f7;
 	background-image:
@@ -105,9 +137,7 @@
 	font-family: monospace;
 }
 
-/* ==================== */
-/* == Interactions
-/* ==================== */
+/* == Interactions */
 #a11ycss-reporter figure:hover img {
 	background: #fff;
 }
@@ -122,43 +152,7 @@
 	outline: none;
 }
 
-/* ==================== */
-/* == Image highlight
-/* ==================== */
-@media (prefers-reduced-motion: no-preference) {
-	:root {
-		scroll-behavior: smooth;
-	}
-}
-
-:target {
-	display: block;
-	scroll-margin-top: calc(50vh - var(--a11ycss-offset));
-}
-
-@keyframes focus {
-	from {
-		outline-offset: 10vw;
-	}
-
-	to {
-		outline: 8px double rebeccapurple;
-		outline-offset: 1rem;
-	}
-}
-
-:target + img {
-	animation: .5s focus .1s ease-out 1 forwards;
-	background-color: #fff;
-	box-shadow: 0 0 10rem 10rem #fffc;
-	border-radius: .5rem;
-	position: relative;
-	z-index: 2147483647;
-}
-
-/* ==================== */
-/* == .visually-hidden
-/* ==================== */
+/* == .visually-hidden */
 #a11ycss-reporter .visually-hidden {
 	border: 0;
 	block-size: 1px;
