@@ -23,7 +23,7 @@
 	"scripts": {
 		"start": "concurrently --kill-others \"npm:watch:*\"",
 		"preversion": "npm t",
-		"version": "json -I -f manifest-firefox.json -e \"this.version='$npm_package_version'\" && json -I -f manifest-chrome.json -e \"this.version='$npm_package_version'\" && npm run webext && git add .",
+		"version": "json -I -f manifest-firefox.json -e \"this.version='$npm_package_version'\" && json -I -f manifest-chrome.json -e \"this.version='$npm_package_version'\" && npm run build && git add .",
 		"test": "concurrently \"npm:lint:*\"",
 		"lint:styles": "stylelint \"./sass/**/*.scss\"",
 		"lint:ext": "cross-env-shell web-ext lint -s $npm_package_name-$npm_package_version-firefox.zip",
