@@ -62,7 +62,7 @@
 		"json": "^11.0.0",
 		"postcss": "^8.4.30",
 		"postcss-cli": "^10.1.0",
-		"sass": "^1.67.0",
+		"sass": "^1.68.0",
 		"shx": "^0.3.4",
 		"stylelint": "^15.10.3",
 		"stylelint-config-recommended": "^13.0.0",
