@@ -55,7 +55,7 @@
 		"a11y.css": "^5.2.1"
 	},
 	"devDependencies": {
-		"autoprefixer": "^10.4.19",
+		"autoprefixer": "^10.4.20",
 		"concurrently": "^8.2.2",
 		"cross-env": "^7.0.3",
 		"cssnano": "^7.0.4",
