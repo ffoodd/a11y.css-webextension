@@ -22,7 +22,7 @@
 	],
 	"scripts": {
 		"start": "concurrently --kill-others \"npm:watch:*\"",
-		"preversion": "shx rm -rf *.zip && npm t",
+		"preversion": "npm run build && npm t && shx rm -rf *.zip",
 		"version": "json -I -f manifest-firefox.json -e \"this.version='$npm_package_version'\" && json -I -f manifest-chrome.json -e \"this.version='$npm_package_version'\" && npm run build && git add .",
 		"test": "concurrently \"npm:lint:*\"",
 		"lint:styles": "stylelint \"./sass/**/*.scss\"",
