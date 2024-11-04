@@ -55,8 +55,9 @@
 		"a11y.css": "^5.2.2"
 	},
 	"devDependencies": {
+		"@stylistic/stylelint-config": "^2.0.0",
 		"autoprefixer": "^10.4.20",
-		"concurrently": "^9.0.1",
+		"concurrently": "^9.1.0",
 		"cross-env": "^7.0.3",
 		"cssnano": "^7.0.6",
 		"json": "^11.0.0",
@@ -64,10 +65,9 @@
 		"postcss-cli": "^11.0.0",
 		"sass": "1.54.8",
 		"shx": "^0.3.4",
-		"stylelint": "^15.11.0",
-		"stylelint-config-recommended": "^13.0.0",
-		"stylelint-config-standard-scss": "^11.1.0",
-		"stylelint-stylistic": "^0.4.5",
+		"stylelint": "^16.10.0",
+		"stylelint-config-recommended": "^14.0.1",
+		"stylelint-config-standard-scss": "^13.1.0",
 		"web-ext": "^8.3.0"
 	},
 	"webExt": {
@@ -92,12 +92,12 @@
 	"stylelint": {
 		"extends": [
 			"stylelint-config-standard-scss",
-			"stylelint-stylistic/config"
+			"@stylistic/stylelint-config"
 		],
 		"rules": {
-			"stylistic/indentation": "tab",
-			"stylistic/string-quotes": null,
-			"stylistic/number-leading-zero": null,
+			"@stylistic/indentation": "tab",
+			"@stylistic/string-quotes": null,
+			"@stylistic/number-leading-zero": null,
 			"at-rule-empty-line-before": null,
 			"color-function-notation": null
 		}
