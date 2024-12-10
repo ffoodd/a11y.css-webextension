@@ -31,7 +31,7 @@
 		"postbuild:css": "postcss css/{lang,outline,spacing}.css -r -m -u autoprefixer cssnano",
 		"watch:css": "sass sass/:css/ -s compressed --load-path=node_modules --source-map --no-error-css -w --quiet-deps",
 		"prebuild": "npm run build:css",
-		"build": "shx cp -r node_modules/a11y.css/css/a11y-{ar,el,en,es,fr,pl,pt-br,ru,zh}.{css,css.map} node_modules/a11y.css/css/a11y-{ar,el,en,es,fr,pl,pt-br,ru,zh}_{error,obsolete,warning}.{css,css.map} ./css",
+		"build": "shx cp -r node_modules/a11y.css/css/a11y-{ar,el,en,es,fr,pl,pt-br,ru,zh,nl}.{css,css.map} node_modules/a11y.css/css/a11y-{ar,el,en,es,fr,pl,pt-br,ru,zh,nl}_{error,obsolete,warning}.{css,css.map} ./css",
 		"postbuild": "npm run build:firefox && npm run build:chrome",
 		"prebuild:firefox": "shx cp manifest-firefox.json manifest.json",
 		"build:firefox": "cross-env-shell web-ext build -n $npm_package_name-$npm_package_version-firefox.zip",
@@ -52,7 +52,7 @@
 		"last 1 versions"
 	],
 	"dependencies": {
-		"a11y.css": "^5.2.2"
+		"a11y.css": "^5.3.0"
 	},
 	"devDependencies": {
 		"@stylistic/stylelint-config": "^2.0.0",
