@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "a11y.css",
   "description": "a11y.css provides warnings about possible risks and mistakes that exist in HTML.",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "default_locale": "en",
   "minimum_chrome_version": "93",
   "permissions": [
