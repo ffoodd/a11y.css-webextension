@@ -26,6 +26,9 @@
 	"altMissing": {
 		"message": "missing"
 	},
+	"titleAbsent": {
+		"message": "absent"
+	},
 	"localizeOn": {
 		"message": "On"
 	},
