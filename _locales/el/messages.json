@@ -26,6 +26,9 @@
 	"altMissing": {
 		"message": "λείπει"
 	},
+	"titleAbsent": {
+		"message": "απόντε απουσι"
+	},
 	"localizeOn": {
 		"message": "Ενεργοποιημένη"
 	},

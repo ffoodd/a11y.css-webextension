@@ -55,7 +55,7 @@
 					title = chrome.i18n.getMessage("altEmpty");
 					break;
 				case '':
-					title = chrome.i18n.getMessage("altMissing");
+					title = chrome.i18n.getMessage("titleAbsent");
 					break;
 				default:
 					title = image.title;
