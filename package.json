@@ -57,7 +57,7 @@
 	"devDependencies": {
 		"@stylistic/stylelint-config": "^2.0.0",
 		"autoprefixer": "^10.4.20",
-		"concurrently": "^9.1.0",
+		"concurrently": "^9.1.1",
 		"cross-env": "^7.0.3",
 		"cssnano": "^7.0.6",
 		"json": "^11.0.0",
