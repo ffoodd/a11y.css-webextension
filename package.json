@@ -68,7 +68,7 @@
 		"stylelint": "^17.4.0",
 		"stylelint-config-recommended": "^18.0.0",
 		"stylelint-config-standard-scss": "^17.0.0",
-		"web-ext": "^9.3.0"
+		"web-ext": "^9.4.0"
 	},
 	"webExt": {
 		"artifactsDir": "./",
